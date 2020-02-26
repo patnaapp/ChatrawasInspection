@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hostelbg"
+    tools:context=".activty.Activity_Hostel_Home">
+
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/headerhome"
+            layout="@layout/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"/>
+        <ImageView
+            android:id="@+id/menu_inflater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_menu"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_foot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <include layout="@layout/footer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/ll_header"
+        android:id="@+id/ll_hostal_img"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ActivityHeader">
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/user"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_user_role"
+            android:text=""
+            android:textAlignment="viewStart"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:padding="3dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/spn_schmeme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/spinner"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/spinner_bg">
+            </Spinner>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/txt_Student"
+            android:text="ई-जननी\n
+         राज्य स्वास्थ्य समिति, बिहार सरकार"/>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/rectangle_dassl_ine"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pendingdata"
+                    android:textAlignment="viewEnd"
+                    android:textColor="#000"
+                    android:padding="3dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_Hostelpending"
+                    android:text="0."
+                    android:textAlignment="viewStart"
+                    android:textColor="#760000"
+                    android:textStyle="bold"
+                    android:padding="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/bnt_hostrntry"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/enrty"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_Hostedit"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/edit"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+                <Button
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_hostupload"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/upload"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/txt_Student"
+            android:text="दस्तावेज़ प्रविष्टि के साथ लाभार्थी की सूची"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/rectangle_dassl_ine"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/txt_Student"
+                android:text="@string/Student_img"/>
+            <!--   <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="@string/pendingdata"
+                   android:textAlignment="viewEnd"
+                   android:textColor="#000"
+                   android:padding="3dp"/>
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tv_Spending"
+                   android:text="0."
+                   android:textAlignment="viewStart"
+                   android:textColor="#760000"
+                   android:textStyle="bold"
+                   android:padding="3dp"/>
+               </LinearLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/bnt_new_reg"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/enrty"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_Sedit"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/edit"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+                <Button
+
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_Supload"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/upload"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

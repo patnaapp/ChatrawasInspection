@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".activty.EjananiEntryForm">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:text="Entry Form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+          android:layout_marginRight="2dp"
+          android:layout_weight="0.5"
+          android:orientation="vertical"
+          android:layout_width="0dp"
+           android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:text="वित्तीय वर्ष"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+        </TextView>
+        <Spinner
+            android:id="@+id/spn_fyear"
+            android:background="@drawable/spinner_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner></LinearLayout>
+
+        <LinearLayout
+         android:orientation="vertical"
+         android:layout_weight="0.5"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:text="योजना का नाम"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </TextView>
+        <Spinner
+            android:id="@+id/spn_yojna"
+            android:background="@drawable/spinner_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+       <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:text="जिला का नाम"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </TextView>
+        <Spinner
+            android:id="@+id/spn_distname"
+            android:background="@drawable/spinner_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:text="ब्लॉक का नाम"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </TextView>
+        <Spinner
+            android:id="@+id/spn_block"
+            android:background="@drawable/spinner_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:text="क्षेत्र का प्रकार"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+
+                </TextView>
+                <Spinner
+                    android:id="@+id/spn_areatype"
+                    android:background="@drawable/spinner_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:text="पंचायत"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+
+                </TextView>
+                <Spinner
+                    android:id="@+id/spn_panch"
+                    android:background="@drawable/spinner_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:text="गाँव"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+
+                </TextView>
+                <Spinner
+
+                    android:id="@+id/spn_vill"
+                    android:background="@drawable/spinner_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:text="बवार्ड"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+
+                </TextView>
+                <Spinner
+                    android:id="@+id/spn_ward"
+                    android:background="@drawable/spinner_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp">
+
+        </View>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="शिशु का नाम अंग्रेजी में [*]	"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_childname"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="शिशु का नाम हिंदी मे  [*]	"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_childname_hindi"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="पिता का नाम (अंग्रेजी में) [*]"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_fanme_eng"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="पिता का नाम (हिंदी में) [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_fname_hindi"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="माता का नाम (अंग्रेजी में) [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_mothname_eng"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text=" माता का नाम (हिंदी में) [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_mothname_hindi"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="शिशु का लिंग [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <Spinner
+                android:id="@+id/spn_child_gender"
+                android:background="@drawable/spinner_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="श्रेणी  [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <Spinner
+                android:id="@+id/spn_cat"
+                android:background="@drawable/spinner_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="जन्म लिए हुए शिशु का संख्या [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_nochild"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="जन्म के समय शिशु का वजन (ग्राम में) [*]"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_child_wht"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="आधार नंबर(माता का) [*]	"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:id="@+id/edt_adh_mother"
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="माता का नाम ((आधार के अनुसार) [*]"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="आधार नंबर(शिशु का) [*]"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text=" मोबाइल नंबर	 "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text=" रिमार्क / टिप्पणी	 "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="बैंक खाता संख्या [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="आई०एफ०एस०सी० [IFSC] कोड [*]	:"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <EditText
+                android:background="@drawable/bgeditbox"
+                style="@style/Edit_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:layout_marginLeft="2dp"
+                android:text="बैंक का नाम [*] "
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </TextView>
+            <Spinner
+                android:background="@drawable/spinner_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+        <Button
+            android:text="रिकॉर्ड सहेजें"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

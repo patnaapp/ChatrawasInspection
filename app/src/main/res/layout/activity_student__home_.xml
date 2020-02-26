@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activty.Student_Home_Activity">
+
+
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/headerhome"
+            layout="@layout/homeheader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            />
+        <ImageView
+            android:id="@+id/menu_inflater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_menu"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_foot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <include layout="@layout/footer" />
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/ll_header"
+            android:id="@+id/ll_hostal_img"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ActivityHeader">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ll_dept_name"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_depart_name"
+                        android:text="Dept Nmae"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:padding="3dp"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ll_host_name"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_host_name"
+                        android:text="Host Nmae"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:padding="3dp"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+              <!-- <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/user"
+                    android:layout_height="wrap_content" />-->
+
+                    <TextView
+                        android:id="@+id/tv_user_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="3dp"
+                        android:padding="3dp"
+                        android:text="Dist Nmae"
+                        android:textAlignment="center"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_foot"
+        android:layout_marginBottom="2dp"
+        android:layout_below="@id/ll_hostal_img">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bnt_host_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bluegradientbuttonshape"
+            android:text="@string/hostlist"
+            android:visibility="gone"
+            android:textColor="#ffffff" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/rectangle_dassl_ine"
+            android:id="@+id/ll_hq_dst_login"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/txt_Student"
+                android:text="@string/District_Wise_Insp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/bnt_hostrntry"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/enrty"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_Hostedit"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/edit"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+                <Button
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_hostupload"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bluegradientbuttonshape"
+                    android:text="@string/upload"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#ffffff"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/rectangle_dassl_ine"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/txt_Student"
+                    android:text="@string/hostal_img"/>
+    <!--            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pendingdata"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#000"
+                        android:padding="3dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_hostel_photo"
+                        android:text="0."
+                        android:textAlignment="viewStart"
+                        android:textColor="#760000"
+                        android:textStyle="bold"
+                        android:padding="3dp"/>
+                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_HImgentry"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/enrty"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_HImgedit"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/edit"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+                    <Button
+
+                        android:layout_margin="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/upload"
+                        android:id="@+id/btn_HImgupload"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/rectangle_dassl_ine"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/txt_Student"
+                    android:text="@string/hostal_Deatils"/>
+              <!--  <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pendingdata"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#000"
+                        android:padding="3dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_hostel_detail"
+                        android:text="0."
+                        android:textAlignment="viewStart"
+                        android:textColor="#760000"
+                        android:textStyle="bold"
+                        android:padding="3dp"/>
+                </LinearLayout>-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_Hentry"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/enrty"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_Hedit"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/edit"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+                    <Button
+
+                        android:layout_margin="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/btn_Hupload"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/upload"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/rectangle_dassl_ine"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/txt_Student"
+                    android:text="@string/Student_img"/>
+             <!--   <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pendingdata"
+                    android:textAlignment="viewEnd"
+                    android:textColor="#000"
+                    android:padding="3dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_Spending"
+                    android:text="0."
+                    android:textAlignment="viewStart"
+                    android:textColor="#760000"
+                    android:textStyle="bold"
+                    android:padding="3dp"/>
+                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/bnt_Srntry"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/enrty"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_Sedit"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/edit"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+                    <Button
+
+                        android:layout_margin="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_Supload"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluegradientbuttonshape"
+                        android:text="@string/upload"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
