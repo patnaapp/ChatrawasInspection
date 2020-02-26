@@ -140,6 +140,7 @@ public class Activity_Hostel_Home extends Activity {
             }
         });
 
+        //Test to check Update Git
 
        /* btn_hostupload.setOnClickListener(new View.OnClickListener() {
             @Override
