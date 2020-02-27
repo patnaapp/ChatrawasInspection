@@ -17,13 +17,19 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import bih.nic.in.chatrawasinspection.entity.Area_Entity;
+import bih.nic.in.chatrawasinspection.entity.Bank_Entity;
 import bih.nic.in.chatrawasinspection.entity.Block_Entity;
+import bih.nic.in.chatrawasinspection.entity.Category_Entity;
 import bih.nic.in.chatrawasinspection.entity.Deptlist;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
+import bih.nic.in.chatrawasinspection.entity.EjananiEntryDetail;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
+import bih.nic.in.chatrawasinspection.entity.Gender_Entity;
 import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.UserDetails;
+import bih.nic.in.chatrawasinspection.entity.Village_Entity;
+import bih.nic.in.chatrawasinspection.entity.Ward_Entity;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     // The Android's default system path of your application database.
@@ -31,7 +37,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //private static String DB_NAME = "chatrawasInsp.db";
     private static String DB_NAME = "PACSDB1";
 
-   // private static String DB_NAME = "PACSDB1";
+    // private static String DB_NAME = "PACSDB1";
 
     private SQLiteDatabase myDataBase;
 
@@ -489,8 +495,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Cursor cur=null;
             SQLiteDatabase db = this.getReadableDatabase();
 
-                cur = db.rawQuery(
-                        "Select * from Dept", null);
+            cur = db.rawQuery(
+                    "Select * from Dept", null);
 
             if (cur.moveToNext()) {
                 progress = setProgressData(cur);
@@ -573,6 +579,61 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return bdetail;
     }
 
+    public ArrayList<Category_Entity> getCategoryLocal() {
+        ArrayList<Category_Entity> bdetail = new ArrayList<Category_Entity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Category order by Cat_Id", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Category_Entity financial_year = new Category_Entity();
+                financial_year.setCat_Id(cur.getString(cur.getColumnIndex("Cat_Id")));
+                financial_year.setCat_Nm((cur.getString(cur.getColumnIndex("Cat_Nm"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+
+    public ArrayList<Gender_Entity> getGenderLocal() {
+        ArrayList<Gender_Entity> bdetail = new ArrayList<Gender_Entity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Gender order by Gender_Id", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Gender_Entity financial_year = new Gender_Entity();
+                financial_year.setGender_Id(cur.getString(cur.getColumnIndex("Gender_Id")));
+                financial_year.setGender_Nm((cur.getString(cur.getColumnIndex("Gender_Nm"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+    public ArrayList<Bank_Entity> getBankLocal() {
+        ArrayList<Bank_Entity> bdetail = new ArrayList<Bank_Entity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from BankList order by Bank_Code", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Bank_Entity financial_year = new Bank_Entity();
+                financial_year.setBank_Nm(cur.getString(cur.getColumnIndex("Bank_Name")));
+                financial_year.setBank_Code((cur.getString(cur.getColumnIndex("Bank_Code"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
 
     public long setFinancialYear(ArrayList<FinYear_Model> list) {
 
@@ -708,18 +769,59 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Panchayat_Entity> getPanchayatLocal(String areatype) {
+    public ArrayList<Panchayat_Entity> getPanchayatLocal(String block,String areatype) {
         ArrayList<Panchayat_Entity> bdetail = new ArrayList<Panchayat_Entity>();
 
-        String[] params = new String[] { areatype };
+        String[] params = new String[] {block,areatype };
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cur = db.rawQuery("select * from Panchayat_New where areaType=?", params);
+            Cursor cur = db.rawQuery("select * from Panchayat_New where BlockCode=? and areaType=?", params);
             int x = cur.getCount();
             while (cur.moveToNext()) {
                 Panchayat_Entity financial_year = new Panchayat_Entity();
                 financial_year.setPan_code(cur.getString(cur.getColumnIndex("Panchayat_Code")));
                 financial_year.setPan_Name((cur.getString(cur.getColumnIndex("Panchayat_Nm"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+
+    public ArrayList<Village_Entity> getVillageLocal(String pan_id) {
+        ArrayList<Village_Entity> bdetail = new ArrayList<Village_Entity>();
+
+        String[] params = new String[] {pan_id};
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Village where Panchayat_id=?", params);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Village_Entity financial_year = new Village_Entity();
+                financial_year.setVill_code(cur.getString(cur.getColumnIndex("Village_id")));
+                financial_year.setVill_Name((cur.getString(cur.getColumnIndex("Village_Nm"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+    public ArrayList<Ward_Entity> getWardLocal(String blkid,String panid,String areatype) {
+        ArrayList<Ward_Entity> bdetail = new ArrayList<Ward_Entity>();
+
+        String[] params = new String[] {blkid,panid,areatype};
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Ward_NEW where Block_Code=? And Pan_Code=? And Area_Ttype=?", params);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Ward_Entity financial_year = new Ward_Entity();
+                financial_year.setWARDCODE(cur.getString(cur.getColumnIndex("Ward_Code")));
+                financial_year.setWARDNAME((cur.getString(cur.getColumnIndex("Ward_Nm"))));
                 bdetail.add(financial_year);
             }
             cur.close();
@@ -812,6 +914,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
                     values.put("Panchayat_Code", info.get(i).getPan_code());
                     values.put("Panchayat_Nm", info.get(i).getPan_Name());
+                    values.put("BlockCode", info.get(i).getBlock_code());
+                    values.put("areaType", info.get(i).getArea_type());
 
 
                     String[] whereArgs = new String[]{info.get(i).getPan_code()};
@@ -840,6 +944,121 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public long setVillageList(ArrayList<Village_Entity> list,String pan_Id) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Village_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Village",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Village_id", info.get(i).getVill_code());
+                    values.put("Village_Nm", info.get(i).getVill_Name());
+                    values.put("Panchayat_id", pan_Id);
+
+
+
+                    String[] whereArgs = new String[]{info.get(i).getVill_code()};
+
+                    c = db.update("Village", values, "Village_id=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Village", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+    public long setWardList(ArrayList<Ward_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Ward_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Ward_NEW",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Ward_Code", info.get(i).getWARDCODE());
+                    values.put("Ward_Nm", info.get(i).getWARDNAME());
+                    values.put("Pan_Code", info.get(i).getPanchayatCode());
+                    values.put("Area_Ttype", info.get(i).getAreaCode());
+                    values.put("Block_Code", info.get(i).getBlockCode());
+
+
+
+                    String[] whereArgs = new String[]{info.get(i).getWARDCODE()};
+
+                    c = db.update("Ward_NEW", values, "Ward_Code=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Ward_NEW", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
 
     public long setAreaList(ArrayList<Area_Entity> list) {
 
@@ -894,6 +1113,282 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return c;
 
 
+    }
+
+
+    public long setCategoryList(ArrayList<Category_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Category_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Category",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Cat_Id", info.get(i).getCat_Id());
+                    values.put("Cat_Nm", info.get(i).getCat_Nm());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getCat_Id()};
+
+                    c = db.update("Category", values, "Cat_Id=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Category", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+    public long setGenderList(ArrayList<Gender_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Gender_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Gender",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Gender_Id", info.get(i).getGender_Id());
+                    values.put("Gender_Nm", info.get(i).getGender_Nm());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getGender_Id()};
+
+                    c = db.update("Gender", values, "Gender_Id=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Gender", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+    public long setBankList(ArrayList<Bank_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Bank_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("BankList",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Bank_Code", info.get(i).getBank_Code());
+                    values.put("Bank_Name", info.get(i).getBank_Nm());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getBank_Code()};
+
+                    c = db.update("BankList", values, "Bank_Code=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("BankList", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+    public long deleteEjananiEntryData(String id){
+
+        long c = -1;
+
+        try {
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            String[] DeleteWhere = {String.valueOf(id)};
+            c = db.delete("EjananiNewEntry", "id=?", DeleteWhere);
+
+            db.close();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return c;
+        }
+        return c;
+    }
+
+
+    public ArrayList<EjananiEntryDetail> getEjananiEntryData(){
+        //PondInspectionDetail info = null;
+
+        ArrayList<EjananiEntryDetail> infoList = new ArrayList<EjananiEntryDetail>();
+
+        try {
+
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String[] params = new String[]{"1"};
+
+            Cursor cur = db.rawQuery(
+                    "Select * from EjananiNewEntry", null);
+            int x = cur.getCount();
+            // db1.execSQL("Delete from UserDetail");
+
+            while (cur.moveToNext()) {
+
+
+                EjananiEntryDetail info = new EjananiEntryDetail();
+
+                info.setId(cur.getInt(cur.getColumnIndex("id")));
+                info.setFinancialYearId(cur.getString(cur.getColumnIndex("FinancialYearId")));
+                info.setFinancialYearName(cur.getString(cur.getColumnIndex("FinancialYearName")));
+                info.setYojnaId(cur.getString(cur.getColumnIndex("YojnaId")));
+                info.setYojnaName(cur.getString(cur.getColumnIndex("YojnaName")));
+                info.setDistrictCode(cur.getString(cur.getColumnIndex("DistrictCode")));
+                info.setDistrictName(cur.getString(cur.getColumnIndex("DistrictName")));
+                info.setBlockCode(cur.getString(cur.getColumnIndex("BlockCode")));
+                info.setBlockName(cur.getString(cur.getColumnIndex("BlockName")));
+                info.setAreaTypeId(cur.getString(cur.getColumnIndex("AreaTypeId")));
+                info.setAreaTypeName(cur.getString(cur.getColumnIndex("AreaTypeName")));
+                info.setPanchayatCode(cur.getString(cur.getColumnIndex("PanchayatCode")));
+                info.setPanchayatName(cur.getString(cur.getColumnIndex("PanchayatName")));
+                info.setVillageCode(cur.getString(cur.getColumnIndex("VillageCode")));
+                info.setVillageName(cur.getString(cur.getColumnIndex("VillageName")));
+                info.setWardCode(cur.getString(cur.getColumnIndex("WardCode")));
+                info.setWardName(cur.getString(cur.getColumnIndex("WardName")));
+                info.setBabyNameEng(cur.getString(cur.getColumnIndex("BabyNameEng")));
+                info.setBabyNameHindi(cur.getString(cur.getColumnIndex("BabyNameHindi")));
+                info.setFatherNameEng(cur.getString(cur.getColumnIndex("FatherNameEng")));
+                info.setFatherNameHindi(cur.getString(cur.getColumnIndex("FatherNameHindi")));
+                info.setMotherNameEng(cur.getString(cur.getColumnIndex("MotherNameEng")));
+                info.setMotherNameHindi(cur.getString(cur.getColumnIndex("MotherNameHindi")));
+                info.setBabyGenderId(cur.getString(cur.getColumnIndex("BabyGenderId")));
+                info.setBabyGenderName(cur.getString(cur.getColumnIndex("BabyGenderName")));
+                info.setCategoryId(cur.getString(cur.getColumnIndex("CategoryId")));
+                info.setCategoryName(cur.getString(cur.getColumnIndex("CategoryName")));
+                info.setJanamLiyeSisuKiSankhya(cur.getString(cur.getColumnIndex("JanamLiyeSisuKiSankhya")));
+                info.setBabyWeight(cur.getString(cur.getColumnIndex("BabyWeight")));
+                info.setMotherAadgharNo(cur.getString(cur.getColumnIndex("MotherAadgharNo")));
+                info.setBabyAadharNo(cur.getString(cur.getColumnIndex("BabyAadharNo")));
+                info.setMobileNo(cur.getString(cur.getColumnIndex("MobileNo")));
+                info.setRemark(cur.getString(cur.getColumnIndex("Remark")));
+                info.setBankAccountNo(cur.getString(cur.getColumnIndex("BankAccountNo")));
+
+                info.setIfscCode(cur.getString(cur.getColumnIndex("IfscCode")));
+                info.setBankName(cur.getString(cur.getColumnIndex("BankName")));
+                info.setLatitude(cur.getString(cur.getColumnIndex("Latitude")));
+                info.setLongitude(cur.getString(cur.getColumnIndex("Longitude")));
+                info.setEntryBy(cur.getString(cur.getColumnIndex("EntryBy")));
+                info.setEntryDate(cur.getString(cur.getColumnIndex("EntryDate")));
+                info.setAppVersion(cur.getString(cur.getColumnIndex("AppVersion")));
+
+
+//                if (!cur.isNull(cur.getColumnIndex("photo"))) {
+//
+//                    byte[] imgData = cur.getBlob(cur.getColumnIndex("photo"));
+//                    Bitmap bmp = BitmapFactory.decodeByteArray(imgData, 0,imgData.length);
+//
+//                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                    bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+//                    String encodedImg1 = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+//                    info.setPhoto(encodedImg1);
+//                }
+
+
+                infoList.add(info);
+            }
+
+            cur.close();
+            db.close();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            //info = null;
+        }
+        return infoList;
     }
 
 }

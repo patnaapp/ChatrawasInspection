@@ -436,7 +436,7 @@
                 android:id="@+id/edt_nochild"
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
-                android:inputType="phone"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -458,6 +458,7 @@
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -478,6 +479,7 @@
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -518,6 +520,7 @@
                 style="@style/Edit_Box"
                 android:id="@+id/child_aadhar_no"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -537,6 +540,8 @@
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
                 android:id="@+id/edt_ben_mob"
+                android:inputType="phone"
+                android:maxLength="10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -577,6 +582,7 @@
                 style="@style/Edit_Box"
                 android:id="@+id/edt_bank_acc"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

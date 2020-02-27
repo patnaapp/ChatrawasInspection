@@ -84,10 +84,10 @@ public class SplashActivity extends Activity {
                     //start();
                     //if(!prefs.getBoolean("fieldDownloaded",false))
                     //	 new loadAppData().execute("");
-                   loadAppData();
+                    loadAppData();
                     //else start();
 
-                  //  start();
+                    //  start();
                 } else {
                     new CheckUpdate().execute();
                     //new downloadFyearData().execute("");
@@ -213,7 +213,7 @@ public class SplashActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
 
-						         Intent launchIntent = getPackageManager()
+                                Intent launchIntent = getPackageManager()
                                         .getLaunchIntentForPackage(
                                                 "com.android.vending");
                                 ComponentName comp = new ComponentName(

@@ -90,14 +90,14 @@ public class WebServiceHelper {
     public static ArrayList<FinYear_Model> getFYearList() {
         SoapObject res1;
         try {
-            SoapObject request = new SoapObject(SERVICENAMESPACE, Get_FinYear);
+            SoapObject request = new SoapObject(SERVICENAMESPACE, GetFYearList);
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
             envelope.setOutputSoapObject(request);
             envelope.addMapping(SERVICENAMESPACE, FinYear_Model.FYEARCLASS.getSimpleName(), FinYear_Model.FYEARCLASS);
             HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
-            androidHttpTransport.call(SERVICENAMESPACE + Get_FinYear, envelope);
+            androidHttpTransport.call(SERVICENAMESPACE + GetFYearList, envelope);
             res1 = (SoapObject) envelope.getResponse();
         } catch (Exception e) {
             e.printStackTrace();
