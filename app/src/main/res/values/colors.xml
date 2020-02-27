@@ -9,5 +9,6 @@
     <color name="holo_blue_dark">#39438B</color>
     <color name="colorText">#023C51</color>
     <color name="darker_gray">#aaa</color>
+    <color name="light_gray">#D1D0D0</color>
 
 </resources>

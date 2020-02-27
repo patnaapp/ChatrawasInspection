@@ -54,5 +54,8 @@
     <string name="editshow">प्रतिवेदन दर्ज की गई सूची  </string>
     <string name="hostlist">छात्रावास की सूची  </string>
     <string name="uploading">uploading</string>
+    <string name="confirmation">पुष्टि करें</string>
+    <string name="upload_files_to_the_server">अपलोड करें </string>
+    <string name="edit2">सुधार  करें</string>
 
 </resources>

@@ -27,10 +27,11 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-
-        <activity android:name=".activty.EjananiEntryForm"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activty.EjananiEditFormActivity"
+            android:label="E-Janani New Entry Data"></activity>
+        <activity android:name=".activty.EjananiEntryForm" />
         <activity android:name=".activty.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

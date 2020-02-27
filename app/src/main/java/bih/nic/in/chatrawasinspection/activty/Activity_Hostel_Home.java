@@ -135,6 +135,15 @@ public class Activity_Hostel_Home extends Activity {
                 startActivity(intent);
             }
         });
+
+        btn_Hostedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),EjananiEditFormActivity.class);
+                startActivity(intent);
+            }
+        });
+
         menu_inflater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

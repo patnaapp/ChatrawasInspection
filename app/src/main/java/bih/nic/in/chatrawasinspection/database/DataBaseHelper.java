@@ -7,8 +7,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +24,7 @@ import bih.nic.in.chatrawasinspection.entity.Area_Entity;
 import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.Deptlist;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
+import bih.nic.in.chatrawasinspection.entity.EjananiEntryDetail;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
@@ -862,7 +867,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<Area_Entity> info = list;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        db.delete("Area",null,null);
+        //db.delete("Area",null,null);
+
         if (info != null) {
             try {
                 for (int i = 0; i < info.size(); i++) {
@@ -894,6 +900,116 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return c;
 
 
+    }
+
+
+    public long deleteEjananiEntryData(String id){
+
+        long c = -1;
+
+        try {
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            String[] DeleteWhere = {String.valueOf(id)};
+            c = db.delete("EjananiNewEntry", "id=?", DeleteWhere);
+
+            db.close();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return c;
+        }
+        return c;
+    }
+
+    public ArrayList<EjananiEntryDetail> getEjananiEntryData(){
+        //PondInspectionDetail info = null;
+
+        ArrayList<EjananiEntryDetail> infoList = new ArrayList<EjananiEntryDetail>();
+
+        try {
+
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String[] params = new String[]{"1"};
+
+            Cursor cur = db.rawQuery(
+                    "Select * from EjananiNewEntry", null);
+            int x = cur.getCount();
+            // db1.execSQL("Delete from UserDetail");
+
+            while (cur.moveToNext()) {
+
+
+                EjananiEntryDetail info = new EjananiEntryDetail();
+
+                info.setId(cur.getInt(cur.getColumnIndex("id")));
+                info.setFinancialYearId(cur.getString(cur.getColumnIndex("FinancialYearId")));
+                info.setFinancialYearName(cur.getString(cur.getColumnIndex("FinancialYearName")));
+                info.setYojnaId(cur.getString(cur.getColumnIndex("YojnaId")));
+                info.setYojnaName(cur.getString(cur.getColumnIndex("YojnaName")));
+                info.setDistrictCode(cur.getString(cur.getColumnIndex("DistrictCode")));
+                info.setDistrictName(cur.getString(cur.getColumnIndex("DistrictName")));
+                info.setBlockCode(cur.getString(cur.getColumnIndex("BlockCode")));
+                info.setBlockName(cur.getString(cur.getColumnIndex("BlockName")));
+                info.setAreaTypeId(cur.getString(cur.getColumnIndex("AreaTypeId")));
+                info.setAreaTypeName(cur.getString(cur.getColumnIndex("AreaTypeName")));
+                info.setPanchayatCode(cur.getString(cur.getColumnIndex("PanchayatCode")));
+                info.setPanchayatName(cur.getString(cur.getColumnIndex("PanchayatName")));
+                info.setVillageCode(cur.getString(cur.getColumnIndex("VillageCode")));
+                info.setVillageName(cur.getString(cur.getColumnIndex("VillageName")));
+                info.setWardCode(cur.getString(cur.getColumnIndex("WardCode")));
+                info.setWardName(cur.getString(cur.getColumnIndex("WardName")));
+                info.setBabyNameEng(cur.getString(cur.getColumnIndex("BabyNameEng")));
+                info.setBabyNameHindi(cur.getString(cur.getColumnIndex("BabyNameHindi")));
+                info.setFatherNameEng(cur.getString(cur.getColumnIndex("FatherNameEng")));
+                info.setFatherNameHindi(cur.getString(cur.getColumnIndex("FatherNameHindi")));
+                info.setMotherNameEng(cur.getString(cur.getColumnIndex("MotherNameEng")));
+                info.setMotherNameHindi(cur.getString(cur.getColumnIndex("MotherNameHindi")));
+                info.setBabyGenderId(cur.getString(cur.getColumnIndex("BabyGenderId")));
+                info.setBabyGenderName(cur.getString(cur.getColumnIndex("BabyGenderName")));
+                info.setCategoryId(cur.getString(cur.getColumnIndex("CategoryId")));
+                info.setCategoryName(cur.getString(cur.getColumnIndex("CategoryName")));
+                info.setJanamLiyeSisuKiSankhya(cur.getString(cur.getColumnIndex("JanamLiyeSisuKiSankhya")));
+                info.setBabyWeight(cur.getString(cur.getColumnIndex("BabyWeight")));
+                info.setMotherAadgharNo(cur.getString(cur.getColumnIndex("MotherAadgharNo")));
+                info.setBabyAadharNo(cur.getString(cur.getColumnIndex("BabyAadharNo")));
+                info.setMobileNo(cur.getString(cur.getColumnIndex("MobileNo")));
+                info.setRemark(cur.getString(cur.getColumnIndex("Remark")));
+                info.setBankAccountNo(cur.getString(cur.getColumnIndex("BankAccountNo")));
+
+                info.setIfscCode(cur.getString(cur.getColumnIndex("IfscCode")));
+                info.setBankName(cur.getString(cur.getColumnIndex("BankName")));
+                info.setLatitude(cur.getString(cur.getColumnIndex("Latitude")));
+                info.setLongitude(cur.getString(cur.getColumnIndex("Longitude")));
+                info.setEntryBy(cur.getString(cur.getColumnIndex("EntryBy")));
+                info.setEntryDate(cur.getString(cur.getColumnIndex("EntryDate")));
+                info.setAppVersion(cur.getString(cur.getColumnIndex("AppVersion")));
+
+
+//                if (!cur.isNull(cur.getColumnIndex("photo"))) {
+//
+//                    byte[] imgData = cur.getBlob(cur.getColumnIndex("photo"));
+//                    Bitmap bmp = BitmapFactory.decodeByteArray(imgData, 0,imgData.length);
+//
+//                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                    bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+//                    String encodedImg1 = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+//                    info.setPhoto(encodedImg1);
+//                }
+
+
+                infoList.add(info);
+            }
+
+            cur.close();
+            db.close();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            //info = null;
+        }
+        return infoList;
     }
 
 }
