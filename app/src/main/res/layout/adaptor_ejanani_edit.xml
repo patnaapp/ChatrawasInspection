@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:id="@+id/sblist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/textboxshape1">
+
+
+        <LinearLayout
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="वित्तीय वर्ष"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_financial_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2018 - 2019"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="योजना"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_yojna_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="xyavj"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="शिशु का नाम"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_baby_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Baby"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="शिशु का वजन"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_baby_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="पिता का नाम"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_father_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Baby"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="माता का नाम"
+                        android:textSize="11sp"
+                        android:textColor="@color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_mother_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:padding="2dp">
+
+            <Button
+                android:id="@+id/btn_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="4dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#E01313"
+                android:background="@drawable/buttonshape"
+                android:text="हटाएं"/>
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#FF9800"
+                android:background="@drawable/buttonshape"
+                android:text="@string/edit2"/>
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/buttonshape"
+                android:text="@string/upload_files_to_the_server"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--</android.support.v7.widget.CardView>-->
+</LinearLayout>

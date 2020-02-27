@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".activty.EjananiEditFormActivity">
+
+    <ListView
+        android:id="@+id/listviewshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="1dp"/>
+
+    <TextView
+        android:id="@+id/tv_Norecord"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF4B4B"
+        android:textStyle="normal"
+        android:text="No Record Found"
+        android:visibility="visible"/>
+
+</RelativeLayout>
