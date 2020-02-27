@@ -34,10 +34,13 @@ import java.util.ArrayList;
 import bih.nic.in.chatrawasinspection.R;
 import bih.nic.in.chatrawasinspection.database.DataBaseHelper;
 import bih.nic.in.chatrawasinspection.entity.Area_Entity;
+import bih.nic.in.chatrawasinspection.entity.Bank_Entity;
 import bih.nic.in.chatrawasinspection.entity.BenfiList;
+import bih.nic.in.chatrawasinspection.entity.Category_Entity;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.EntryDetailDistAdm;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
+import bih.nic.in.chatrawasinspection.entity.Gender_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.StudentPhoto;
 import bih.nic.in.chatrawasinspection.utility.CommonPref;
@@ -62,6 +65,9 @@ public class Activity_Hostel_Home extends Activity {
     ArrayList<FinYear_Model> FYearList = new ArrayList<FinYear_Model>();
     ArrayList<DistrictEntity> DistList = new ArrayList<DistrictEntity>();
     ArrayList<Area_Entity> Area_List = new ArrayList<Area_Entity>();
+    ArrayList<Category_Entity> Category_List = new ArrayList<Category_Entity>();
+    ArrayList<Gender_Entity> Gender_List = new ArrayList<Gender_Entity>();
+    ArrayList<Bank_Entity> Bank_List = new ArrayList<Bank_Entity>();
     ArrayList<String> FyearArray;
     ArrayList<String> DistArray;
     ArrayAdapter<String> Fyearadapter;
@@ -100,6 +106,18 @@ public class Activity_Hostel_Home extends Activity {
         Area_List = dataBaseHelper.getAreaLocal();
         if (Area_List.size() <= 0) {
             new AreaList_New().execute();
+        }
+        Category_List = dataBaseHelper.getCategoryLocal();
+        if (Category_List.size() <= 0) {
+            new CategoryList_New().execute();
+        }
+        Gender_List = dataBaseHelper.getGenderLocal();
+        if (Gender_List.size() <= 0) {
+            new GenderList_New().execute();
+        }
+        Bank_List = dataBaseHelper.getBankLocal();
+        if (Bank_List.size() <= 0) {
+            new BankList_New().execute();
         }
 
 
@@ -310,4 +328,146 @@ public class Activity_Hostel_Home extends Activity {
         }
     }
 
+    private class CategoryList_New extends AsyncTask<String, Void, ArrayList<Category_Entity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Category_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getCategList();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Category_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setCategoryList(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Category List Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class GenderList_New extends AsyncTask<String, Void, ArrayList<Gender_Entity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Gender_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getgenderList();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Gender_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setGenderList(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Category List Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
+    private class BankList_New extends AsyncTask<String, Void, ArrayList<Bank_Entity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Bank List...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Bank_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getBankList();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Bank_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setBankList(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Bank List Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

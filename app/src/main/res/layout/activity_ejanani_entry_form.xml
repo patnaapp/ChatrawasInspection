@@ -4,20 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+
     tools:context=".activty.EjananiEntryForm">
+
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/headerhome"
+            layout="@layout/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#2369A0"
+        android:id="@+id/ll_txt"
+        android:layout_below="@+id/ll_header"
+        android:gravity="center_horizontal">
+        <TextView
+            android:gravity="center"
+            android:text="ENTRY FORM"
+            android:textStyle="bold"
+            android:textColor="#F2F2F7"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@+id/ll_txt"
         android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonshape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:gravity="center"
-            android:text="Entry Form"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
         <LinearLayout
             android:weightSum="1"
             android:orientation="horizontal"
@@ -203,7 +235,7 @@
                 <TextView
                     android:gravity="center"
                     android:layout_marginLeft="2dp"
-                    android:text="बवार्ड"
+                    android:text="बार्ड"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
 
@@ -404,6 +436,7 @@
                 android:id="@+id/edt_nochild"
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:inputType="phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -463,6 +496,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:id="@+id/edt_Mother_Nm_aadhar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -482,6 +516,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:id="@+id/child_aadhar_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -501,6 +536,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:id="@+id/edt_ben_mob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -520,7 +556,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
-
+                android:id="@+id/edt_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -539,6 +575,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:id="@+id/edt_bank_acc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -558,6 +595,7 @@
             <EditText
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
+                android:id="@+id/edt_ifsc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -577,6 +615,7 @@
             <Spinner
                 android:background="@drawable/spinner_bg"
                 android:layout_width="match_parent"
+                android:id="@+id/spn_bank"
                 android:layout_height="wrap_content">
 
             </Spinner>
