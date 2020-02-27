@@ -21,6 +21,7 @@ import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.Deptlist;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
+import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.UserDetails;
 
@@ -562,7 +563,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             while (cur.moveToNext()) {
                 Area_Entity financial_year = new Area_Entity();
                 financial_year.setAreaCode(cur.getString(cur.getColumnIndex("Area_ID")));
-                financial_year.setAreaCode((cur.getString(cur.getColumnIndex("Area_Name"))));
+                financial_year.setAreaName((cur.getString(cur.getColumnIndex("Area_Name"))));
                 bdetail.add(financial_year);
             }
             cur.close();
@@ -706,6 +707,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return bdetail;
     }
 
+
+    public ArrayList<Panchayat_Entity> getPanchayatLocal(String areatype) {
+        ArrayList<Panchayat_Entity> bdetail = new ArrayList<Panchayat_Entity>();
+
+        String[] params = new String[] { areatype };
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Panchayat_New where areaType=?", params);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Panchayat_Entity financial_year = new Panchayat_Entity();
+                financial_year.setPan_code(cur.getString(cur.getColumnIndex("Panchayat_Code")));
+                financial_year.setPan_Name((cur.getString(cur.getColumnIndex("Panchayat_Nm"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+
     public long setBlockList(ArrayList<Block_Entity> list) {
 
 
@@ -760,6 +783,63 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     }
+
+    public long setPanchayatList(ArrayList<Panchayat_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Panchayat_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Panchayat_New",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Panchayat_Code", info.get(i).getPan_code());
+                    values.put("Panchayat_Nm", info.get(i).getPan_Name());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getPan_code()};
+
+                    c = db.update("Panchayat_New", values, "Panchayat_Code=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Panchayat_New", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+
 
     public long setAreaList(ArrayList<Area_Entity> list) {
 

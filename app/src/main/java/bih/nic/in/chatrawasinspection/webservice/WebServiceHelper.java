@@ -18,6 +18,7 @@ import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.GenderList;
 import bih.nic.in.chatrawasinspection.entity.HostelList;
+import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.StudentList;
 import bih.nic.in.chatrawasinspection.entity.StudentPhoto;
@@ -42,6 +43,7 @@ public class WebServiceHelper {
     private static final String GetFYearList = "Get_FinYear";
     private static final String GetDistList = "Get_District";
     private static final String GetBLKList = "Get_Block";
+    private static final String GetPanchayt_List = "Get_Block";
     private static final String GetArea_List = "Get_Area";
 
     static String rest;
@@ -484,5 +486,50 @@ public class WebServiceHelper {
 
         return pvmArrayList;
     }
+
+
+    public static ArrayList<Panchayat_Entity> getPqanchayatList(String block) {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetPanchayt_List);
+        request.addProperty("dist", block);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, Panchayat_Entity.Panchayat_Class.getSimpleName(), Panchayat_Entity.Panchayat_Class);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetPanchayt_List,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<Panchayat_Entity> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    Panchayat_Entity district = new Panchayat_Entity(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
+    }
+
 
 }

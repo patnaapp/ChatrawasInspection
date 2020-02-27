@@ -19,6 +19,8 @@ import bih.nic.in.chatrawasinspection.entity.Area_Entity;
 import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
+import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
+import bih.nic.in.chatrawasinspection.utility.CommonPref;
 import bih.nic.in.chatrawasinspection.webservice.WebServiceHelper;
 
 public class EjananiEntryForm extends AppCompatActivity {
@@ -27,15 +29,18 @@ public class EjananiEntryForm extends AppCompatActivity {
     ArrayList<FinYear_Model> FYearList = new ArrayList<FinYear_Model>();
     ArrayList<DistrictEntity> DistList = new ArrayList<DistrictEntity>();
     ArrayList<Block_Entity> BlockList = new ArrayList<Block_Entity>();
+    ArrayList<Panchayat_Entity> Panchayat_List = new ArrayList<Panchayat_Entity>();
     ArrayList<Area_Entity> Area_List = new ArrayList<Area_Entity>();
     ArrayList<String> FyearArray;
     ArrayList<String> DistArray;
     ArrayList<String> BLKArray;
     ArrayList<String> Area_Array;
+    ArrayList<String> Pan_Array;
     ArrayAdapter<String> Fyearadapter;
     ArrayAdapter<String> Distadapter;
     ArrayAdapter<String> BLKadapter;
     ArrayAdapter<String> areaadapter;
+    ArrayAdapter<String> panadapter;
     String var_spn_agri_id="",var_spn_agri_year="",var_spn_dist_id="",var_spn_dist_nm="",var_block_id="",var_block_nm="",var_area_id="",var_area_nm="";
     DataBaseHelper dataBaseHelper;
 
@@ -139,7 +144,12 @@ public class EjananiEntryForm extends AppCompatActivity {
                     var_area_id = Area_List.get(pos - 1).getAreaCode();
                     var_area_nm = Area_List.get(pos - 1).getAreaName();
 
-
+                    Panchayat_List = dataBaseHelper.getPanchayatLocal(var_area_id);
+                    if (Panchayat_List.size() <= 0) {
+                        new LoadPanchaytList(var_spn_dist_id).execute();
+                    } else {
+                        loadBlockList(var_spn_dist_id);
+                    }
 
                 } else {
 
@@ -198,20 +208,33 @@ public class EjananiEntryForm extends AppCompatActivity {
     public void loadDistrictList() {
         dataBaseHelper = new DataBaseHelper(EjananiEntryForm.this);
 
+
         DistList = dataBaseHelper.getDistrictLocal();
-        DistArray = new ArrayList<String>();
-        DistArray.add("-select-");
-        int i = 0;
-        for (DistrictEntity financial_year : DistList) {
-            DistArray.add(financial_year.getDistName());
+        String[] typeNameArray = new String[DistList.size() + 1];
+        typeNameArray[0] = "-चुनें-";
+        int i = 1;
+        for (DistrictEntity type : DistList) {
+            typeNameArray[i] = type.getDistName();
             i++;
         }
-        Distadapter = new ArrayAdapter<>(this, R.layout.dropdowlist, DistArray);
-        Distadapter.setDropDownViewResource(R.layout.dropdowlist);
+        Distadapter = new ArrayAdapter<String>(this, R.layout.dropdownlist, typeNameArray);
+        Distadapter.setDropDownViewResource(R.layout.dropdownlist);
         spn_dist.setAdapter(Distadapter);
+        int setID=0;
+        for ( i = 0; i < DistList.size(); i++) {
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
+            if (DistList.get(i).getDistCode().equalsIgnoreCase(CommonPref.getUserDetails(EjananiEntryForm.this).getDistrictCode())) {
+                setID = i;
+            }
+            if(setID!=0) {
+                spn_dist.setSelection(setID+1);
+                spn_dist.setEnabled(false);
+            }
+        }
+
+//        if(getIntent().hasExtra("KeyId"))
+//        {
+//            spn_dist.setSelection(((ArrayAdapter<String>) spn_dist.getAdapter()).getPosition(districtspin));
 //        }
 
     }
@@ -241,19 +264,31 @@ public class EjananiEntryForm extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(EjananiEntryForm.this);
 
         BlockList = dataBaseHelper.getBlockLocal(distid);
-        BLKArray = new ArrayList<String>();
-        BLKArray.add("-select-");
-        int i = 0;
-        for (Block_Entity financial_year : BlockList) {
-            BLKArray.add(financial_year.getBlockName());
+        String[] typeNameArray = new String[BlockList.size() + 1];
+        typeNameArray[0] = "-प्रखंड चयन करे-";
+        int i = 1;
+        for (Block_Entity type : BlockList) {
+            typeNameArray[i] = type.getBlockName();
             i++;
         }
-        BLKadapter = new ArrayAdapter<>(this, R.layout.dropdowlist, BLKArray);
-        BLKadapter.setDropDownViewResource(R.layout.dropdowlist);
+        BLKadapter = new ArrayAdapter<String>(this, R.layout.dropdownlist, typeNameArray);
+        BLKadapter.setDropDownViewResource(R.layout.dropdownlist);
         spn_block.setAdapter(BLKadapter);
+        int setID=0;
+        for ( i = 0; i < BlockList.size(); i++) {
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
+            if (BlockList.get(i).getBlockCode().equalsIgnoreCase(CommonPref.getUserDetails(EjananiEntryForm.this).getBlockCode())) {
+                setID = i;
+            }
+            if(setID!=0) {
+                spn_block.setSelection(setID+1);
+                spn_block.setEnabled(false);
+            }
+        }
+
+//        if(getIntent().hasExtra("KeyId"))
+//        {
+//            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
 //        }
 
     }
@@ -305,6 +340,63 @@ public class EjananiEntryForm extends AppCompatActivity {
                 if (i > 0) {
                     loadBlockList(distcode);
                     Toast.makeText(EjananiEntryForm.this, "Block List Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private class LoadPanchaytList extends AsyncTask<String, Void, ArrayList<Panchayat_Entity>> {
+        String distcode;
+
+        LoadPanchaytList(String distid)
+        {
+            this.distcode=distid;
+
+        }
+
+
+        private final ProgressDialog dialog = new ProgressDialog(EjananiEntryForm.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(EjananiEntryForm.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Block List...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Panchayat_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getPqanchayatList(distcode);
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Panchayat_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(EjananiEntryForm.this);
+
+
+                long i = helper.setPanchayatList(result);
+                if (i > 0) {
+                    loadBlockList(distcode);
+                    Toast.makeText(EjananiEntryForm.this, "Panchayat List Loaded", Toast.LENGTH_SHORT).show();
                 } else {
 
                 }
