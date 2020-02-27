@@ -10,8 +10,11 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 
+import bih.nic.in.chatrawasinspection.entity.Area_Entity;
 import bih.nic.in.chatrawasinspection.entity.BenfiList;
+import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.Deptlist;
+import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.GenderList;
 import bih.nic.in.chatrawasinspection.entity.HostelList;
@@ -35,6 +38,11 @@ public class WebServiceHelper {
     public static final String Get_Block = "Get_Block";
     public static final String Get_Category = "Get_Category";
     public static final String Get_Gender = "Get_Gender";
+
+    private static final String GetFYearList = "Get_FinYear";
+    private static final String GetDistList = "Get_District";
+    private static final String GetBLKList = "Get_Block";
+    private static final String GetArea_List = "Get_Area";
 
     static String rest;
 
@@ -299,6 +307,182 @@ public class WebServiceHelper {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public static ArrayList<FinYear_Model> getFinancialYear() {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetFYearList);
+        //request.addProperty("APIKey", API_Key);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, FinYear_Model.FYEARCLASS.getSimpleName(), FinYear_Model.FYEARCLASS);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetFYearList,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<FinYear_Model> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    FinYear_Model district = new FinYear_Model(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
+    }
+
+
+    public static ArrayList<DistrictEntity> getDistrictList() {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetDistList);
+        //request.addProperty("APIKey", API_Key);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, DistrictEntity.DistClass.getSimpleName(), DistrictEntity.DistClass);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetDistList,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<DistrictEntity> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    DistrictEntity district = new DistrictEntity(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
+    }
+
+
+    public static ArrayList<Block_Entity> getBlockList(String distid) {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetBLKList);
+        request.addProperty("dist", distid);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, Block_Entity.BLKCLASS.getSimpleName(), Block_Entity.BLKCLASS);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetBLKList,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<Block_Entity> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    Block_Entity district = new Block_Entity(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
+    }
+
+
+    public static ArrayList<Area_Entity> getAreaList() {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetArea_List);
+        //request.addProperty("APIKey", API_Key);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, Area_Entity.Area_CLASS.getSimpleName(), Area_Entity.Area_CLASS);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetArea_List,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<Area_Entity> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    Area_Entity district = new Area_Entity(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
     }
 
 }

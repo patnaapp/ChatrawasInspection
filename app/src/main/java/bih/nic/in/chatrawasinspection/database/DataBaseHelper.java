@@ -16,7 +16,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import bih.nic.in.chatrawasinspection.entity.Area_Entity;
+import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.Deptlist;
+import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.UserDetails;
@@ -513,8 +516,304 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<FinYear_Model> getFinancialYearLocal() {
+        ArrayList<FinYear_Model> bdetail = new ArrayList<FinYear_Model>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from FyearList order by FyearId", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                FinYear_Model financial_year = new FinYear_Model();
+                financial_year.setFYearCode(cur.getString(cur.getColumnIndex("FyearId")));
+                financial_year.setFYearName((cur.getString(cur.getColumnIndex("FyearName"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+
+    public ArrayList<DistrictEntity> getDistrictLocal() {
+        ArrayList<DistrictEntity> bdetail = new ArrayList<DistrictEntity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Districts order by DistCode", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                DistrictEntity financial_year = new DistrictEntity();
+                financial_year.setDistCode(cur.getString(cur.getColumnIndex("DistCode")));
+                financial_year.setDistName((cur.getString(cur.getColumnIndex("DistName"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+    public ArrayList<Area_Entity> getAreaLocal() {
+        ArrayList<Area_Entity> bdetail = new ArrayList<Area_Entity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Area order by Area_ID", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Area_Entity financial_year = new Area_Entity();
+                financial_year.setAreaCode(cur.getString(cur.getColumnIndex("Area_ID")));
+                financial_year.setAreaCode((cur.getString(cur.getColumnIndex("Area_Name"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
 
 
+    public long setFinancialYear(ArrayList<FinYear_Model> list) {
 
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<FinYear_Model> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("FyearList",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("FyearId", info.get(i).getFYearCode());
+                    values.put("FyearName", info.get(i).getFYearName());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getFYearCode()};
+
+                    c = db.update("FyearList", values, "FyearId=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("FyearList", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+
+    public long setDistList(ArrayList<DistrictEntity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<DistrictEntity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Districts",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("DistCode", info.get(i).getDistCode());
+                    values.put("DistName", info.get(i).getDistName());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getDistCode()};
+
+                    c = db.update("Districts", values, "DistCode=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Districts", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+
+    public ArrayList<Block_Entity> getBlockLocal(String distcode) {
+        ArrayList<Block_Entity> bdetail = new ArrayList<Block_Entity>();
+
+        String[] params = new String[] { distcode };
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Blocks where DistCode=?", params);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Block_Entity financial_year = new Block_Entity();
+                financial_year.setBlockCode(cur.getString(cur.getColumnIndex("BlockCode")));
+                financial_year.setBlockName((cur.getString(cur.getColumnIndex("BlockName"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
+
+    public long setBlockList(ArrayList<Block_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Block_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Blocks",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("BlockCode", info.get(i).getBlockCode());
+                    values.put("BlockName", info.get(i).getBlockName());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getBlockCode()};
+
+                    c = db.update("Blocks", values, "BlockCode=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Blocks", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+
+    public long setAreaList(ArrayList<Area_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Area_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Area",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("Area_ID", info.get(i).getAreaCode());
+                    values.put("Area_Name", info.get(i).getAreaName());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getAreaCode()};
+
+                    c = db.update("Area", values, "Area_ID=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Area", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
 
 }

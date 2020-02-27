@@ -4,13 +4,17 @@ import org.ksoap2.serialization.SoapObject;
 
 public class FinYear_Model {
 
-    public static Class<Deptlist> FYEARCLASS = Deptlist.class;
+    public static Class<FinYear_Model> FYEARCLASS = FinYear_Model.class;
     private String FYearCode;
     private String FYearName;
 
     public FinYear_Model(SoapObject final_object) {
         this.setFYearCode(final_object.getProperty("FYearID").toString());
         this.setFYearName(final_object.getProperty("FinYear").toString());
+    }
+
+    public FinYear_Model(){
+
     }
 
     public String getFYearCode() {

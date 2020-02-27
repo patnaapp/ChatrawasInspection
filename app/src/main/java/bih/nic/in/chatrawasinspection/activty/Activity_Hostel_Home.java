@@ -33,8 +33,11 @@ import java.util.ArrayList;
 
 import bih.nic.in.chatrawasinspection.R;
 import bih.nic.in.chatrawasinspection.database.DataBaseHelper;
+import bih.nic.in.chatrawasinspection.entity.Area_Entity;
 import bih.nic.in.chatrawasinspection.entity.BenfiList;
+import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
 import bih.nic.in.chatrawasinspection.entity.EntryDetailDistAdm;
+import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.StudentPhoto;
 import bih.nic.in.chatrawasinspection.utility.CommonPref;
@@ -56,6 +59,16 @@ public class Activity_Hostel_Home extends Activity {
     ArrayList<Schemelist> SchemeList = new ArrayList<Schemelist>();
     ArrayAdapter<String> Schemeadapter;
     String SchemeId="";
+    ArrayList<FinYear_Model> FYearList = new ArrayList<FinYear_Model>();
+    ArrayList<DistrictEntity> DistList = new ArrayList<DistrictEntity>();
+    ArrayList<Area_Entity> Area_List = new ArrayList<Area_Entity>();
+    ArrayList<String> FyearArray;
+    ArrayList<String> DistArray;
+    ArrayAdapter<String> Fyearadapter;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +88,19 @@ public class Activity_Hostel_Home extends Activity {
         tv_Hostelpending = (TextView) findViewById(R.id.tv_Hostelpending);
 
         tv_user_role.setText(DistrictName);
+
+        FYearList = dataBaseHelper.getFinancialYearLocal();
+        if (FYearList.size() <= 0) {
+            new FINANCIALYEAR_New().execute();
+        }
+        DistList = dataBaseHelper.getDistrictLocal();
+        if (DistList.size() <= 0) {
+            new DistrictList_New().execute();
+        }
+        Area_List = dataBaseHelper.getAreaLocal();
+        if (Area_List.size() <= 0) {
+            new AreaList_New().execute();
+        }
 
 
         spn_schmeme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -140,63 +166,148 @@ public class Activity_Hostel_Home extends Activity {
             }
         });
 
-        //Changess
-
-       /* btn_hostupload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Utiilties.isOnline(Activity_Hostel_Home.this)) {
-
-                    AlertDialog.Builder ab = new AlertDialog.Builder(
-                            Activity_Hostel_Home.this);
-                    ab.setTitle("अपलोड !");
-                    ab.setMessage("क्या आप सर्वर पर लंबित सभी अपलोड करना चाहते हैं?");
-                    ab.setPositiveButton("नहीं", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    ab.setNegativeButton("हाँ", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.dismiss();
-                            // UploadNewEntry(CommonPref.getUserDetails(Activity_Hostel_Home.this).getUserID());
-                            DataBaseHelper dbHelper = new DataBaseHelper(
-                                    getApplicationContext());
-
-                            ArrayList<BenfiList> dataProgress = dbHelper.getUploadTableList(CommonPref.getUserDetails(getApplicationContext()).getUserID());
-                            if (dataProgress.size() > 0) {
-
-
-                                for (BenfiList data : dataProgress) {
-                                  //  new UploadPendingTask2(data).execute();
-
-                                }
-                            }
-                        }
-
-
-
-                    });
-                    ab.create().getWindow().getAttributes().windowAnimations = R.style.alert_animation;
-                    ab.show();
-
-                } else
-
-                {
-                    Toast.makeText(Activity_Hostel_Home.this, " कोई इंटरनेट कनेक्शन नहीं\n ! \n कृपया अपनी इंटरनेट कनेक्टिविटी जांचें.",
-                            Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });*/
-
-       // getPendingCounts();
 
     }
+    private class FINANCIALYEAR_New extends AsyncTask<String, Void, ArrayList<FinYear_Model>> {
 
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<FinYear_Model> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getFinancialYear();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FinYear_Model> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setFinancialYear(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Financial Year Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private class DistrictList_New extends AsyncTask<String, Void, ArrayList<DistrictEntity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<DistrictEntity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getDistrictList();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<DistrictEntity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setDistList(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Financial Year Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class AreaList_New extends AsyncTask<String, Void, ArrayList<Area_Entity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Area_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getAreaList();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Area_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setAreaList(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Area List Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }
