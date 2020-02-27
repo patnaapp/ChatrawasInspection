@@ -141,7 +141,6 @@ public class Activity_Hostel_Home extends Activity {
         });
 
         //Changess
-        //Vjoasngodsjng
 
        /* btn_hostupload.setOnClickListener(new View.OnClickListener() {
             @Override
