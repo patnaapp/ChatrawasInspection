@@ -1,8 +1,10 @@
 package bih.nic.in.chatrawasinspection.activty;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +29,7 @@ import bih.nic.in.chatrawasinspection.entity.Bank_Entity;
 import bih.nic.in.chatrawasinspection.entity.Block_Entity;
 import bih.nic.in.chatrawasinspection.entity.Category_Entity;
 import bih.nic.in.chatrawasinspection.entity.DistrictEntity;
+import bih.nic.in.chatrawasinspection.entity.EjananiEntryDetail;
 import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.Gender_Entity;
 import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
@@ -78,6 +81,10 @@ public class EjananiEntryForm extends AppCompatActivity {
     EditText edt_nochild,edt_child_wht,edt_adh_mother,edt_Mother_Nm_aadhar,child_aadhar_no,edt_ben_mob;
     EditText edt_remarks,edt_bank_acc,edt_ifsc;
     Button btn_Save;
+    Integer keyid ;
+    boolean edit;
+    String UserId="";
+    ArrayList<EjananiEntryDetail> EntryList = new ArrayList<>();
 
 
 
@@ -94,6 +101,24 @@ public class EjananiEntryForm extends AppCompatActivity {
         loadAreaTypeList();
         loadCategoryList();
         loadGenderList();
+
+        try {
+
+            keyid = getIntent().getExtras().getInt("KeyId");
+            String isEdit = "";
+            isEdit = getIntent().getExtras().getString("isEdit");
+            Log.d("kvfrgv", "" + keyid + "" + isEdit);
+            if (keyid > 0 && isEdit.equals("Yes")) {
+                edit = true;
+                ShowEditEntry(keyid);
+
+            }
+
+        } catch (Exception e) {
+            Log.e("EXP", e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+
 
 
         spn_yr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1227,5 +1252,95 @@ public class EjananiEntryForm extends AppCompatActivity {
             isvalid = email.matches(regExp);
         }
         return isvalid;
+    }
+
+
+    public void ShowEditEntry(Integer keyid) {
+        DataBaseHelper helper = new DataBaseHelper(EjananiEntryForm.this);
+        UserId = CommonPref.getUserDetails(getApplicationContext()).getUserID();
+        // Log.d("valjhhhhhhhues",""+UserId+"%"+keyid);
+        //EntryList = helper.getAllEntryById(UserId, keyid);
+        Intent intent=getIntent();
+        EjananiEntryDetail entryinfo;
+        entryinfo =(EjananiEntryDetail) intent.getSerializableExtra("data");
+
+        ArrayList<EjananiEntryDetail> basicInfo = EntryList;
+        btn_Save.setText("UPDATE");
+
+        edt_childname.setText(entryinfo.getBabyNameEng());
+        edt_childname_hindi.setText(entryinfo.getBabyNameHindi());
+        edt_fanme_eng.setText(entryinfo.getFatherNameEng());
+        edt_fname_hindi.setText(entryinfo.getFatherNameHindi());
+        edt_mothname_eng.setText(entryinfo.getMotherNameEng());
+        edt_mothname_hindi.setText(entryinfo.getMotherNameHindi());
+        edt_nochild.setText(entryinfo.getJanamLiyeSisuKiSankhya());
+        edt_child_wht.setText(entryinfo.getBabyWeight());
+        edt_adh_mother.setText(entryinfo.getMotherAadgharNo());
+
+        child_aadhar_no.setText(entryinfo.getBabyAadharNo());
+        edt_ben_mob.setText(entryinfo.getMobileNo());
+        edt_remarks.setText(entryinfo.getRemark());
+        edt_bank_acc.setText(entryinfo.getBankAccountNo());
+        edt_ifsc.setText(entryinfo.getIfscCode());
+
+
+
+//        typeofland = basicInfo.get(0).getType_of_land_Name();
+//        orderofexperiment = basicInfo.get(0).getOrder_of_experiment();
+//        whethercondition = basicInfo.get(0).getWeather_condition_during_crop_season();
+//        weatherconditionname = basicInfo.get(0).getWeatherconditionname();
+//        sourceofseed = basicInfo.get(0).getSource_of_seed();
+//        sourceofseed_name = basicInfo.get(0).getSourceofseed_name();
+//        typeofmanure_name = basicInfo.get(0).getTypeofmanure_name();
+//        cultivation_name = basicInfo.get(0).getSystemofcultivation_name();
+//        varitiescrop_name = basicInfo.get(0).getVaritiesofcrop_name();
+//        typeofmanure = basicInfo.get(0).getType_of_manure();
+//        varityofcrop = basicInfo.get(0).getVarities_of_crop();
+//        subvarity_ofcrop = basicInfo.get(0).getSub_varitiesofcrop_name();
+//        systemofcultivation = basicInfo.get(0).getSystem_of_cutivation();
+//        unitoftheareacovgcrop = basicInfo.get(0).getUnitareaCoverage();
+//
+//
+//        var_surveyNo = basicInfo.get(0).getSurvey_no_khesra_no();
+//
+//        agrival = basicInfo.get(0).getAgri_year_nm();
+//        loadFinancialYear();
+//        //   addItemsOnSpinner();
+//        addUnitAreaCoverageCrop();
+//        addUnitOperationalSizeHolding();
+//
+//        cropval = dataBaseHelper.getNameFor("CropType", "Crop_Id", "Crop_Name", basicInfo.get(0).getCrop());
+//
+//        seasonval = dataBaseHelper.getNameFor("Season", "season_id", "season_name", basicInfo.get(0).getSeason());
+//
+//        loadSeason();
+//        loadFinancialYear();
+//        st_spn_season_id = basicInfo.get(0).getSeason();
+//        st_spn_croptyp = basicInfo.get(0).getCrop();
+//        st_spn_panchayat_code = basicInfo.get(0).getPanchayat();
+//        loadPanchayatData(PanchayatList);
+//
+//        addUnitOperationalSizeHolding();
+//        addSubTypeVaritiesOfCrop();
+//        // addUnitOperationalSizeHolding();
+//        addUnitAreaCoverageCrop();
+//        loadCRopVarities();
+//        loadCutivationSpinner();
+//        loadManureType();
+//        loadSourceOfSeed();
+//        loadWeatherCondition();
+//        //addItemsOnSpinner();
+//        loadLandType();
+//
+//
+//        if (getIntent().hasExtra("KeyId")) {
+//            spn_subtype_of_varities_of_crop.setSelection((((ArrayAdapter<String>) spn_subtype_of_varities_of_crop.getAdapter()).getPosition(basicInfo.get(0).getSub_varitiesofcrop_name())));
+//        }
+//
+//        if (getIntent().hasExtra("KeyId")) {
+//            spn_order_of_experiment.setSelection((((ArrayAdapter<String>) spn_order_of_experiment.getAdapter()).getPosition(basicInfo.get(0).getOrder_of_experiment())));
+//        }
+
+
     }
 }

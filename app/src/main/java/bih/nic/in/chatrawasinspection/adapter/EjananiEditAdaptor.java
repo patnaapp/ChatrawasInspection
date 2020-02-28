@@ -130,6 +130,8 @@ public class EjananiEditAdaptor extends BaseAdapter {
                 Intent i = new Intent(activity, EjananiEntryForm.class);
                 EjananiEntryDetail info = ThrList.get(position);
                 i.putExtra("data", info);
+                i.putExtra("KeyId", ThrList.get(position).getId());
+                i.putExtra("isEdit", "Yes");
                 activity.startActivity(i);
             }
         });
