@@ -602,7 +602,9 @@
                 android:background="@drawable/bgeditbox"
                 style="@style/Edit_Box"
                 android:id="@+id/edt_ifsc"
+                android:inputType="textCapCharacters"
                 android:layout_width="match_parent"
+                android:maxLength="11"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -631,6 +633,8 @@
             android:text="रिकॉर्ड सहेजें"
             android:layout_gravity="center"
             android:layout_width="200dp"
+            android:id="@+id/btn_Save"
+            android:onClick="onClick_SaveNewEntry"
             android:layout_height="50dp"/>
     </LinearLayout>
 

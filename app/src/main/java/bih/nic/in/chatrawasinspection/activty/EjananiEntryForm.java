@@ -1,13 +1,17 @@
 package bih.nic.in.chatrawasinspection.activty;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -73,6 +77,7 @@ public class EjananiEntryForm extends AppCompatActivity {
     EditText edt_childname,edt_childname_hindi,edt_fanme_eng,edt_fname_hindi,edt_mothname_eng,edt_mothname_hindi;
     EditText edt_nochild,edt_child_wht,edt_adh_mother,edt_Mother_Nm_aadhar,child_aadhar_no,edt_ben_mob;
     EditText edt_remarks,edt_bank_acc,edt_ifsc;
+    Button btn_Save;
 
 
 
@@ -451,6 +456,8 @@ public class EjananiEntryForm extends AppCompatActivity {
         edt_remarks=findViewById(R.id.edt_remarks);
         edt_bank_acc=findViewById(R.id.edt_bank_acc);
         edt_ifsc=findViewById(R.id.edt_ifsc);
+        btn_Save=findViewById(R.id.btn_Save);
+        edt_ifsc.addTextChangedListener(inputTextWatcher);
     }
 
 
@@ -632,7 +639,7 @@ public class EjananiEntryForm extends AppCompatActivity {
 
         Panchayat_List = dataBaseHelper.getPanchayatLocal(blockid,areaid);
         String[] typeNameArray = new String[Panchayat_List.size() + 1];
-        typeNameArray[0] = "-प्रखंड चयन करे-";
+        typeNameArray[0] = "-पंचायत चयन करे-";
         int i = 1;
         for (Panchayat_Entity type : Panchayat_List) {
             typeNameArray[i] = type.getPan_Name();
@@ -666,7 +673,7 @@ public class EjananiEntryForm extends AppCompatActivity {
 
         Village_List = dataBaseHelper.getVillageLocal(panid);
         String[] typeNameArray = new String[Village_List.size() + 1];
-        typeNameArray[0] = "-प्रखंड चयन करे-";
+        typeNameArray[0] = "-गाँव चयन करे-";
         int i = 1;
         for (Village_Entity type : Village_List) {
             typeNameArray[i] = type.getVill_Name();
@@ -700,7 +707,7 @@ public class EjananiEntryForm extends AppCompatActivity {
 
         Ward_List = dataBaseHelper.getWardLocal(blkid,panid,var_area_id);
         String[] typeNameArray = new String[Ward_List.size() + 1];
-        typeNameArray[0] = "-प्रखंड चयन करे-";
+        typeNameArray[0] = "-वार्ड चयन करे-";
         int i = 1;
         for (Ward_Entity type : Ward_List) {
             typeNameArray[i] = type.getWARDNAME();
@@ -987,5 +994,238 @@ public class EjananiEntryForm extends AppCompatActivity {
         Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(txtVal);
         return matcher.find();
+    }
+
+
+
+    private String Validate() {
+
+        String isvalid = "yes";
+
+        if ((spn_yr != null && spn_yr.getSelectedItem() != null)) {
+            if ((String) spn_yr.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select financial year.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+
+        if ((spn_dist != null && spn_dist.getSelectedItem() != null)) {
+            if ((String) spn_dist.getSelectedItem() != "-चुनें-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select district.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+        if ((spn_block != null && spn_block.getSelectedItem() != null)) {
+            if ((String) spn_block.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select block.", Toast.LENGTH_LONG).show();
+                return "no";
+            }
+        }
+
+        if ((spn_areatype != null && spn_areatype.getSelectedItem() != null)) {
+            if ((String) spn_areatype.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select area type.", Toast.LENGTH_LONG).show();
+                return "no";
+            }
+        }
+
+        if ((spn_panchayat != null && spn_panchayat.getSelectedItem() != null)) {
+            if ((String) spn_panchayat.getSelectedItem() != "-पंचायत चयन करे-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select Panchayat.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+        if ((spn_vill != null && spn_vill.getSelectedItem() != null)) {
+            if ((String) spn_vill.getSelectedItem() != "-गाँव चयन करे-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select village.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+        if ((spn_ward != null && spn_ward.getSelectedItem() != null)) {
+            if ((String) spn_ward.getSelectedItem() != "-वार्ड चयन करे-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select ward.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+
+        if ((spn_cat != null && spn_cat.getSelectedItem() != null)) {
+            if ((String) spn_cat.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select category.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+
+        if ((spn_child_gender != null && spn_child_gender.getSelectedItem() != null)) {
+            if ((String) spn_child_gender.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select gender.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+
+        if ((spn_bank != null && spn_bank.getSelectedItem() != null)) {
+            if ((String) spn_bank.getSelectedItem() != "-select-") {
+                isvalid = "yes";
+            } else {
+                Toast.makeText(EjananiEntryForm.this, "Please select bank.", Toast.LENGTH_LONG).show();
+
+                return "no";
+            }
+        }
+
+
+        if (edt_childname.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter child name in english.", Toast.LENGTH_LONG).show();
+            edt_childname.requestFocus();
+            return "no";
+        }
+
+        if (edt_childname_hindi.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter child name in hindi.", Toast.LENGTH_LONG).show();
+            edt_childname_hindi.requestFocus();
+            return "no";
+        }
+
+        if (edt_fanme_eng.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter father name in eng.", Toast.LENGTH_LONG).show();
+            edt_fanme_eng.requestFocus();
+            return "no";
+        }
+
+        if (edt_fname_hindi.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter father name in hindi.", Toast.LENGTH_LONG).show();
+            edt_fname_hindi.requestFocus();
+            return "no";
+        }
+        if (edt_mothname_eng.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter mother name in english.", Toast.LENGTH_LONG).show();
+            edt_mothname_eng.requestFocus();
+            return "no";
+        }
+
+        if (edt_mothname_hindi.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter mother name in hindi.", Toast.LENGTH_LONG).show();
+            edt_mothname_hindi.requestFocus();
+            return "no";
+        }
+        if (edt_nochild.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter child number.", Toast.LENGTH_LONG).show();
+            edt_nochild.requestFocus();
+            return "no";
+        }
+
+        if (edt_child_wht.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter child wheight.", Toast.LENGTH_LONG).show();
+            edt_child_wht.requestFocus();
+            return "no";
+        }
+
+
+        if (edt_adh_mother.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter mothers aadhaar no.", Toast.LENGTH_LONG).show();
+            edt_adh_mother.requestFocus();
+            return "no";
+        }
+
+
+        if (edt_Mother_Nm_aadhar.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter mothers name as per aadhaar.", Toast.LENGTH_LONG).show();
+            edt_Mother_Nm_aadhar.requestFocus();
+            return "no";
+        }
+
+        if (child_aadhar_no.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter child aadhaar number.", Toast.LENGTH_LONG).show();
+            child_aadhar_no.requestFocus();
+            return "no";
+        }
+        if (edt_ben_mob.getText().toString().trim().length() < 10) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter valid mobile number.", Toast.LENGTH_LONG).show();
+            edt_ben_mob.requestFocus();
+            return "no";
+        }
+        if (edt_remarks.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter remarks.", Toast.LENGTH_LONG).show();
+            edt_remarks.requestFocus();
+            return "no";
+        }
+        if (edt_bank_acc.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter account no.", Toast.LENGTH_LONG).show();
+            edt_bank_acc.requestFocus();
+            return "no";
+        }
+        if (edt_ifsc.getText().toString().trim().length() <= 0) {
+            Toast.makeText(EjananiEntryForm.this, "Please enter ifsc code.", Toast.LENGTH_LONG).show();
+            edt_ifsc.requestFocus();
+            return "no";
+        }
+
+        return isvalid;
+
+    }
+    private TextWatcher inputTextWatcher = new TextWatcher() {
+
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            if (edt_ifsc.getText().toString().length() == 11) {
+                String ifsc=edt_ifsc.getText().toString();
+                if (isIfscCodeValid(ifsc)==true){
+                    edt_ifsc.setTextColor(Color.parseColor("#00FF00"));
+                    btn_Save.setEnabled(true);
+
+                }
+                else {
+                    edt_ifsc.setTextColor(Color.parseColor("#ff0000"));
+                    btn_Save.setEnabled(false);
+                }
+
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    public static boolean isIfscCodeValid(String email)
+    {
+        String regExp = "^[A-Z]{4}[0][A-Z0-9]{6}$";
+        boolean isvalid = false;
+
+        if (email.length() > 0) {
+            isvalid = email.matches(regExp);
+        }
+        return isvalid;
     }
 }
