@@ -4,20 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     tools:context=".activty.EjananiEditFormActivity">
 
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/headerhome"
+            layout="@layout/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#2369A0"
+        android:id="@+id/ll_txt"
+        android:layout_below="@+id/ll_header"
+        android:gravity="center_horizontal">
+        <TextView
+            android:gravity="center"
+            android:text="ENTRY LIST"
+            android:textStyle="bold"
+            android:textColor="#F2F2F7"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
     <ListView
+        android:layout_below="@+id/ll_txt"
         android:id="@+id/listviewshow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:padding="10dp"
         android:clickable="true"
         android:elevation="10dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="1dp"/>
 
     <TextView
+        android:layout_below="@+id/ll_txt"
         android:id="@+id/tv_Norecord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
