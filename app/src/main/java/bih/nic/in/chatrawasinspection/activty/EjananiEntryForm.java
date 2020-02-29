@@ -96,12 +96,6 @@ public class EjananiEntryForm extends AppCompatActivity {
         setContentView(R.layout.activity_ejanani_entry_form);
         dataBaseHelper = new DataBaseHelper(EjananiEntryForm.this);
         Initialization();
-        loadFinancialYear();
-        loadBankList();
-        loadDistrictList();
-        loadAreaTypeList();
-        loadCategoryList();
-        loadGenderList();
 
         try {
 
@@ -115,10 +109,17 @@ public class EjananiEntryForm extends AppCompatActivity {
 
             }
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Log.e("EXP", e.getLocalizedMessage());
             e.printStackTrace();
         }
+        loadFinancialYear();
+        loadBankList();
+        loadDistrictList();
+        loadAreaTypeList();
+        loadCategoryList();
+        loadGenderList();
 
 
 
@@ -1285,81 +1286,27 @@ public class EjananiEntryForm extends AppCompatActivity {
         edt_ifsc.setText(entryinfo.getIfscCode());
 
         _spin_fin_yr=entryinfo.getFinancialYearName();
+        loadFinancialYear();
         _spin_bank=entryinfo.getBankName();
+        loadBankList();
         districtspin=entryinfo.getDistrictName();
+        loadDistrictList();
         _spin_area=entryinfo.getAreaTypeName();
+        loadAreaTypeList();
         _spin_cat=entryinfo.getCategoryName();
+        loadCategoryList();
         _spin_gender=entryinfo.getBabyGenderName();
+        loadGenderList();
         blockspin=entryinfo.getBlockName();
         _spin_panchayat=entryinfo.getPanchayatName();
         _spin_village=entryinfo.getVillageName();
         _spin_ward=entryinfo.getWardName();
-        loadFinancialYear();
-        loadBankList();
-        loadDistrictList();
-        loadAreaTypeList();
-        loadCategoryList();
-        loadGenderList();
+
+
         loadBlockList(entryinfo.getDistrictCode());
-        loadPanchayatList(entryinfo.getDistrictCode(),entryinfo.getAreaTypeId());
+        loadPanchayatList(entryinfo.getBlockCode(),entryinfo.getAreaTypeId());
         loadVillageList(entryinfo.getPanchayatCode());
         loadWardList(entryinfo.getBlockCode(),entryinfo.getPanchayatCode(),entryinfo.getAreaTypeId());
-
-//        typeofland = basicInfo.get(0).getType_of_land_Name();
-//        orderofexperiment = basicInfo.get(0).getOrder_of_experiment();
-//        whethercondition = basicInfo.get(0).getWeather_condition_during_crop_season();
-//        weatherconditionname = basicInfo.get(0).getWeatherconditionname();
-//        sourceofseed = basicInfo.get(0).getSource_of_seed();
-//        sourceofseed_name = basicInfo.get(0).getSourceofseed_name();
-//        typeofmanure_name = basicInfo.get(0).getTypeofmanure_name();
-//        cultivation_name = basicInfo.get(0).getSystemofcultivation_name();
-//        varitiescrop_name = basicInfo.get(0).getVaritiesofcrop_name();
-//        typeofmanure = basicInfo.get(0).getType_of_manure();
-//        varityofcrop = basicInfo.get(0).getVarities_of_crop();
-//        subvarity_ofcrop = basicInfo.get(0).getSub_varitiesofcrop_name();
-//        systemofcultivation = basicInfo.get(0).getSystem_of_cutivation();
-//        unitoftheareacovgcrop = basicInfo.get(0).getUnitareaCoverage();
-//
-//
-//        var_surveyNo = basicInfo.get(0).getSurvey_no_khesra_no();
-//
-//        agrival = basicInfo.get(0).getAgri_year_nm();
-//        loadFinancialYear();
-//        //   addItemsOnSpinner();
-//        addUnitAreaCoverageCrop();
-//        addUnitOperationalSizeHolding();
-//
-//        cropval = dataBaseHelper.getNameFor("CropType", "Crop_Id", "Crop_Name", basicInfo.get(0).getCrop());
-//
-//        seasonval = dataBaseHelper.getNameFor("Season", "season_id", "season_name", basicInfo.get(0).getSeason());
-//
-//        loadSeason();
-//        loadFinancialYear();
-//        st_spn_season_id = basicInfo.get(0).getSeason();
-//        st_spn_croptyp = basicInfo.get(0).getCrop();
-//        st_spn_panchayat_code = basicInfo.get(0).getPanchayat();
-//        loadPanchayatData(PanchayatList);
-//
-//        addUnitOperationalSizeHolding();
-//        addSubTypeVaritiesOfCrop();
-//        // addUnitOperationalSizeHolding();
-//        addUnitAreaCoverageCrop();
-//        loadCRopVarities();
-//        loadCutivationSpinner();
-//        loadManureType();
-//        loadSourceOfSeed();
-//        loadWeatherCondition();
-//        //addItemsOnSpinner();
-//        loadLandType();
-//
-//
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_subtype_of_varities_of_crop.setSelection((((ArrayAdapter<String>) spn_subtype_of_varities_of_crop.getAdapter()).getPosition(basicInfo.get(0).getSub_varitiesofcrop_name())));
-//        }
-//
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_order_of_experiment.setSelection((((ArrayAdapter<String>) spn_order_of_experiment.getAdapter()).getPosition(basicInfo.get(0).getOrder_of_experiment())));
-//        }
 
 
     }
