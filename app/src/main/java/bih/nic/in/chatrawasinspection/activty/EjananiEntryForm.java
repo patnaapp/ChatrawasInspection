@@ -85,6 +85,7 @@ public class EjananiEntryForm extends AppCompatActivity {
     boolean edit;
     String UserId="";
     ArrayList<EjananiEntryDetail> EntryList = new ArrayList<>();
+    String _spin_fin_yr="",_spin_bank="",districtspin="",_spin_area="",_spin_cat="",_spin_gender="",blockspin="",_spin_panchayat="",_spin_village="",_spin_ward="";
 
 
 
@@ -501,9 +502,9 @@ public class EjananiEntryForm extends AppCompatActivity {
         Fyearadapter.setDropDownViewResource(R.layout.dropdowlist);
         spn_yr.setAdapter(Fyearadapter);
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
-//        }
+        if (getIntent().hasExtra("KeyId")) {
+            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_fin_yr));
+        }
 
     }
 
@@ -522,9 +523,9 @@ public class EjananiEntryForm extends AppCompatActivity {
         bank_adapter.setDropDownViewResource(R.layout.dropdowlist);
         spn_bank.setAdapter(bank_adapter);
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
-//        }
+        if (getIntent().hasExtra("KeyId")) {
+            spn_bank.setSelection(((ArrayAdapter<String>) spn_bank.getAdapter()).getPosition(_spin_bank));
+        }
 
     }
 
@@ -556,10 +557,10 @@ public class EjananiEntryForm extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().hasExtra("KeyId"))
-//        {
-//            spn_dist.setSelection(((ArrayAdapter<String>) spn_dist.getAdapter()).getPosition(districtspin));
-//        }
+        if(getIntent().hasExtra("KeyId"))
+        {
+            spn_dist.setSelection(((ArrayAdapter<String>) spn_dist.getAdapter()).getPosition(districtspin));
+        }
 
     }
 
@@ -578,9 +579,9 @@ public class EjananiEntryForm extends AppCompatActivity {
         areaadapter.setDropDownViewResource(R.layout.dropdowlist);
         spn_areatype.setAdapter(areaadapter);
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
-//        }
+        if (getIntent().hasExtra("KeyId")) {
+            spn_areatype.setSelection(((ArrayAdapter<String>) spn_areatype.getAdapter()).getPosition(_spin_area));
+        }
 
     }
 
@@ -599,9 +600,9 @@ public class EjananiEntryForm extends AppCompatActivity {
         catadapter.setDropDownViewResource(R.layout.dropdowlist);
         spn_cat.setAdapter(catadapter);
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
-//        }
+        if (getIntent().hasExtra("KeyId")) {
+            spn_cat.setSelection(((ArrayAdapter<String>) spn_cat.getAdapter()).getPosition(_spin_cat));
+        }
 
     }
 
@@ -620,9 +621,9 @@ public class EjananiEntryForm extends AppCompatActivity {
         genderadapter.setDropDownViewResource(R.layout.dropdowlist);
         spn_child_gender.setAdapter(genderadapter);
 
-//        if (getIntent().hasExtra("KeyId")) {
-//            spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_agri_yr));
-//        }
+        if (getIntent().hasExtra("KeyId")) {
+            spn_child_gender.setSelection(((ArrayAdapter<String>) spn_child_gender.getAdapter()).getPosition(_spin_gender));
+        }
 
     }
 
@@ -652,10 +653,10 @@ public class EjananiEntryForm extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().hasExtra("KeyId"))
-//        {
-//            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
-//        }
+        if(getIntent().hasExtra("KeyId"))
+        {
+            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
+        }
 
     }
 
@@ -685,10 +686,10 @@ public class EjananiEntryForm extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().hasExtra("KeyId"))
-//        {
-//            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
-//        }
+        if(getIntent().hasExtra("KeyId"))
+        {
+            spn_panchayat.setSelection(((ArrayAdapter<String>) spn_panchayat.getAdapter()).getPosition(_spin_panchayat));
+        }
 
     }
 
@@ -719,10 +720,10 @@ public class EjananiEntryForm extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().hasExtra("KeyId"))
-//        {
-//            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
-//        }
+        if(getIntent().hasExtra("KeyId"))
+        {
+            spn_vill.setSelection(((ArrayAdapter<String>) spn_vill.getAdapter()).getPosition(_spin_village));
+        }
 
     }
 
@@ -753,10 +754,10 @@ public class EjananiEntryForm extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().hasExtra("KeyId"))
-//        {
-//            spn_block.setSelection(((ArrayAdapter<String>) spn_block.getAdapter()).getPosition(blockspin));
-//        }
+        if(getIntent().hasExtra("KeyId"))
+        {
+            spn_ward.setSelection(((ArrayAdapter<String>) spn_ward.getAdapter()).getPosition(_spin_ward));
+        }
 
     }
 
@@ -1283,7 +1284,26 @@ public class EjananiEntryForm extends AppCompatActivity {
         edt_bank_acc.setText(entryinfo.getBankAccountNo());
         edt_ifsc.setText(entryinfo.getIfscCode());
 
-
+        _spin_fin_yr=entryinfo.getFinancialYearName();
+        _spin_bank=entryinfo.getBankName();
+        districtspin=entryinfo.getDistrictName();
+        _spin_area=entryinfo.getAreaTypeName();
+        _spin_cat=entryinfo.getCategoryName();
+        _spin_gender=entryinfo.getBabyGenderName();
+        blockspin=entryinfo.getBlockName();
+        _spin_panchayat=entryinfo.getPanchayatName();
+        _spin_village=entryinfo.getVillageName();
+        _spin_ward=entryinfo.getWardName();
+        loadFinancialYear();
+        loadBankList();
+        loadDistrictList();
+        loadAreaTypeList();
+        loadCategoryList();
+        loadGenderList();
+        loadBlockList(entryinfo.getDistrictCode());
+        loadPanchayatList(entryinfo.getDistrictCode(),entryinfo.getAreaTypeId());
+        loadVillageList(entryinfo.getPanchayatCode());
+        loadWardList(entryinfo.getBlockCode(),entryinfo.getPanchayatCode(),entryinfo.getAreaTypeId());
 
 //        typeofland = basicInfo.get(0).getType_of_land_Name();
 //        orderofexperiment = basicInfo.get(0).getOrder_of_experiment();
