@@ -35,13 +35,16 @@ import bih.nic.in.chatrawasinspection.entity.Gender_Entity;
 import bih.nic.in.chatrawasinspection.entity.Panchayat_Entity;
 import bih.nic.in.chatrawasinspection.entity.Village_Entity;
 import bih.nic.in.chatrawasinspection.entity.Ward_Entity;
+import bih.nic.in.chatrawasinspection.entity.Yojna_Entity;
 import bih.nic.in.chatrawasinspection.utility.CommonPref;
+import bih.nic.in.chatrawasinspection.utility.Utiilties;
 import bih.nic.in.chatrawasinspection.webservice.WebServiceHelper;
 
 public class EjananiEntryForm extends AppCompatActivity {
 
     Spinner spn_yr,spn_yojna,spn_dist,spn_block,spn_areatype,spn_vill,spn_ward,spn_panchayat;
     ArrayList<FinYear_Model> FYearList = new ArrayList<FinYear_Model>();
+    ArrayList<Yojna_Entity> YojnaList = new ArrayList<Yojna_Entity>();
     ArrayList<DistrictEntity> DistList = new ArrayList<DistrictEntity>();
     ArrayList<Block_Entity> BlockList = new ArrayList<Block_Entity>();
     ArrayList<Panchayat_Entity> Panchayat_List = new ArrayList<Panchayat_Entity>();
@@ -52,6 +55,7 @@ public class EjananiEntryForm extends AppCompatActivity {
     ArrayList<Category_Entity> Category_List = new ArrayList<Category_Entity>();
     ArrayList<Gender_Entity> CGender_List = new ArrayList<Gender_Entity>();
     ArrayList<String> FyearArray;
+    ArrayList<String> YojnaArray;
     ArrayList<String> DistArray;
     ArrayList<String> BLKArray;
     ArrayList<String> Area_Array;
@@ -62,6 +66,7 @@ public class EjananiEntryForm extends AppCompatActivity {
     ArrayList<String> Pan_Array;
     ArrayList<String> ward_Array;
     ArrayAdapter<String> Fyearadapter;
+    ArrayAdapter<String> Yojnaadapter;
     ArrayAdapter<String> Distadapter;
     ArrayAdapter<String> BLKadapter;
     ArrayAdapter<String> areaadapter;
@@ -72,7 +77,7 @@ public class EjananiEntryForm extends AppCompatActivity {
     ArrayAdapter<String> ward_adapter;
     ArrayAdapter<String> bank_adapter;
     String var_spn_bank_id="",var_spn_bank_nm="";
-    String var_spn_agri_id="",var_spn_agri_year="",var_spn_dist_id="",var_spn_dist_nm="",var_block_id="",var_block_nm="",var_area_id="",var_area_nm="";
+    String var_spn_agri_id="",var_spn_agri_year="",var_spn_dist_id="",var_spn_dist_nm="",var_block_id="",var_block_nm="",var_area_id="",var_area_nm="",var_spn_Yojna_id="",var_spn_Yojna_Name="";
     DataBaseHelper dataBaseHelper;
     Spinner spn_child_gender,spn_cat,spn_bank;
     String var_spn_gender_id="",var_spn_gender_nm="",var_spn_cat_id="",var_spn_cat_nm="",var_pan_id="",var_pan_nm="";
@@ -84,8 +89,12 @@ public class EjananiEntryForm extends AppCompatActivity {
     Integer keyid ;
     boolean edit;
     String UserId="";
+    String _child_nm_eng="",_child_nm_hindi="",_father_nm_eng="",_father_nm_hindi="",_mother_nm_eng="",_mother_nm_hindi="",_child_no="",_child_wt="",_mother_adhaar="",_mother_nm_aadhaar="",_child_aadhaar="";
+    String _ben_mob_no="",_remarks="",_bank_acc="",_ifsc="";
+    EjananiEntryDetail basicInfo = new EjananiEntryDetail();
+    String isEdit = "";
     ArrayList<EjananiEntryDetail> EntryList = new ArrayList<>();
-    String _spin_fin_yr="",_spin_bank="",districtspin="",_spin_area="",_spin_cat="",_spin_gender="",blockspin="",_spin_panchayat="",_spin_village="",_spin_ward="";
+    String _spin_fin_yr="",_spin_yojna="",_spin_bank="",districtspin="",_spin_area="",_spin_cat="",_spin_gender="",blockspin="",_spin_panchayat="",_spin_village="",_spin_ward="";
 
 
 
@@ -115,6 +124,7 @@ public class EjananiEntryForm extends AppCompatActivity {
             e.printStackTrace();
         }
         loadFinancialYear();
+        loadYojna();
         loadBankList();
         loadDistrictList();
         loadAreaTypeList();
@@ -132,6 +142,26 @@ public class EjananiEntryForm extends AppCompatActivity {
                 if (pos > 0) {
                     var_spn_agri_id = FYearList.get(pos - 1).getFYearCode();
                     var_spn_agri_year = FYearList.get(pos - 1).getFYearName();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+        spn_yojna.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                int pos = position;
+                if (pos > 0) {
+                    var_spn_Yojna_id = YojnaList.get(pos - 1).getYojna_Code();
+                    var_spn_Yojna_Name = YojnaList.get(pos - 1).getYojna_Name();
                 }
 
             }
@@ -505,6 +535,26 @@ public class EjananiEntryForm extends AppCompatActivity {
 
         if (getIntent().hasExtra("KeyId")) {
             spn_yr.setSelection(((ArrayAdapter<String>) spn_yr.getAdapter()).getPosition(_spin_fin_yr));
+        }
+
+    }
+    public void loadYojna() {
+        dataBaseHelper = new DataBaseHelper(EjananiEntryForm.this);
+
+        YojnaList = dataBaseHelper.getYojnaLocal();
+        YojnaArray = new ArrayList<String>();
+        YojnaArray.add("-select-");
+        int i = 0;
+        for (Yojna_Entity financial_year : YojnaList) {
+            YojnaArray.add(financial_year.getYojna_Name());
+            i++;
+        }
+        Yojnaadapter = new ArrayAdapter<>(this, R.layout.dropdowlist, YojnaArray);
+        Yojnaadapter.setDropDownViewResource(R.layout.dropdowlist);
+        spn_yojna.setAdapter(Yojnaadapter);
+
+        if (getIntent().hasExtra("KeyId")) {
+            spn_yojna.setSelection(((ArrayAdapter<String>) spn_yojna.getAdapter()).getPosition(_spin_yojna));
         }
 
     }
@@ -1287,6 +1337,8 @@ public class EjananiEntryForm extends AppCompatActivity {
 
         _spin_fin_yr=entryinfo.getFinancialYearName();
         loadFinancialYear();
+        _spin_yojna=entryinfo.getYojnaName();
+        loadYojna();
         _spin_bank=entryinfo.getBankName();
         loadBankList();
         districtspin=entryinfo.getDistrictName();
@@ -1307,6 +1359,101 @@ public class EjananiEntryForm extends AppCompatActivity {
         loadPanchayatList(entryinfo.getBlockCode(),entryinfo.getAreaTypeId());
         loadVillageList(entryinfo.getPanchayatCode());
         loadWardList(entryinfo.getBlockCode(),entryinfo.getPanchayatCode(),entryinfo.getAreaTypeId());
+
+
+    }
+    public void onClick_SaveNewEntry(View view){
+
+        if (btn_Save.getText().toString().equals("UPDATE")) {
+            String isvalid = Validate();
+
+            if (isvalid.equalsIgnoreCase("yes")) {
+                //UpdateNewEntry();
+            }
+        } else {
+            String isvalid = Validate();
+            if (isvalid.equalsIgnoreCase("yes")) {
+                InsertNewEntry();
+            }
+        }
+    }
+    public void InsertNewEntry() {
+        long c = 0;
+        SetValue();
+        DataBaseHelper placeData = new DataBaseHelper(EjananiEntryForm.this);
+
+        basicInfo.setFinancialYearId(var_spn_agri_id);
+        basicInfo.setFinancialYearName(var_spn_agri_year);
+        basicInfo.setYojnaId(var_spn_Yojna_id);
+        basicInfo.setYojnaName(var_spn_Yojna_Name);
+        basicInfo.setDistrictCode(var_spn_dist_id);
+        basicInfo.setDistrictName(var_spn_dist_nm);
+        basicInfo.setBlockCode(var_block_id);
+        basicInfo.setBlockName(var_block_nm);
+        basicInfo.setAreaTypeId(var_area_id);
+        basicInfo.setAreaTypeName(var_area_nm);
+        basicInfo.setPanchayatCode(var_pan_id);
+        basicInfo.setPanchayatName(var_pan_nm);
+        basicInfo.setVillageCode(var_vill_id);
+        basicInfo.setVillageName(var_vill_nm);
+        basicInfo.setWardCode(var_spn_ward_id);
+        basicInfo.setWardName(var_spn_ward_nm);
+        basicInfo.setBabyNameEng(_child_nm_eng);
+        basicInfo.setBabyNameHindi(_child_nm_hindi);
+        basicInfo.setFatherNameEng(_father_nm_eng);
+        basicInfo.setFatherNameHindi(_father_nm_hindi);
+        basicInfo.setMotherNameEng(_mother_nm_eng);
+        basicInfo.setMotherNameHindi(_mother_nm_hindi);
+        basicInfo.setBabyGenderId(var_spn_gender_id);
+        basicInfo.setBabyGenderName(var_spn_gender_nm);
+        basicInfo.setCategoryId(var_spn_cat_id);
+        basicInfo.setCategoryName(var_spn_cat_nm);
+        basicInfo.setJanamLiyeSisuKiSankhya(_child_no);
+        basicInfo.setBabyWeight(_child_wt);
+        basicInfo.setMotherAadgharNo(_mother_adhaar);
+        basicInfo.setBabyAadharNo(_child_aadhaar);
+        basicInfo.setMobileNo(_ben_mob_no);
+        basicInfo.setRemark(_remarks);
+        basicInfo.setBankAccountNo(_bank_acc);
+        basicInfo.setIfscCode(_ifsc);
+        basicInfo.setBankName(var_spn_bank_nm);
+        basicInfo.setEntryBy(CommonPref.getUserDetails(getApplicationContext()).getUserID());
+
+        basicInfo.setEntryDate(Utiilties.getCurrentDate());
+
+        c = placeData.InsertInBasicDetails(basicInfo);
+        if (c > 0) {
+
+            Toast.makeText(getApplicationContext(), "Data Successfully Saved !", Toast.LENGTH_LONG).show();
+            Intent rddirect = new Intent(EjananiEntryForm.this, MultiplePhotoActivity.class);
+            rddirect.putExtra("index", Long.toString(c));
+            rddirect.putExtra("edited", isEdit);
+            startActivity(rddirect);
+
+        } else {
+            Toast.makeText(EjananiEntryForm.this, "Not successfull", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+    private void SetValue() {
+
+        _child_nm_eng = edt_childname.getText().toString();
+        _child_nm_hindi = edt_childname_hindi.getText().toString();
+
+        _father_nm_eng = edt_fanme_eng.getText().toString();
+        _father_nm_hindi = edt_fname_hindi.getText().toString();
+        _mother_nm_eng = edt_mothname_eng.getText().toString();
+        _mother_nm_hindi = edt_mothname_hindi.getText().toString();
+        _child_no = edt_nochild.getText().toString();
+        _child_wt = edt_child_wht.getText().toString();
+        _mother_adhaar = edt_adh_mother.getText().toString();
+        _mother_nm_aadhaar = edt_Mother_Nm_aadhar.getText().toString();
+        _child_aadhaar = child_aadhar_no.getText().toString();
+        _ben_mob_no = edt_ben_mob.getText().toString();
+        _remarks = edt_remarks.getText().toString();
+        _bank_acc = edt_bank_acc.getText().toString();
+        _ifsc = edt_ifsc.getText().toString();
 
 
     }

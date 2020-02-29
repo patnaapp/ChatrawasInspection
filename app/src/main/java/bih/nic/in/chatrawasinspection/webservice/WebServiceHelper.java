@@ -29,6 +29,7 @@ import bih.nic.in.chatrawasinspection.entity.UserDetails;
 import bih.nic.in.chatrawasinspection.entity.Versioninfo;
 import bih.nic.in.chatrawasinspection.entity.Village_Entity;
 import bih.nic.in.chatrawasinspection.entity.Ward_Entity;
+import bih.nic.in.chatrawasinspection.entity.Yojna_Entity;
 
 public class WebServiceHelper {
 
@@ -46,6 +47,7 @@ public class WebServiceHelper {
     public static final String Get_Gender = "Get_Gender";
 
     private static final String GetFYearList = "Get_FinYear";
+    private static final String GetYojnaList = "Get_Scheme";
     private static final String GetDistList = "Get_District";
     private static final String GetBLKList = "Get_Block";
     private static final String GetPanchayt_List = "Get_Panchyat";
@@ -355,6 +357,48 @@ public class WebServiceHelper {
                 if (property instanceof SoapObject) {
                     SoapObject final_object = (SoapObject) property;
                     FinYear_Model district = new FinYear_Model(final_object);
+                    pvmArrayList.add(district);
+                }
+            } else
+                return pvmArrayList;
+        }
+
+
+        return pvmArrayList;
+    }
+    public static ArrayList<Yojna_Entity> getYojna() {
+
+        SoapObject request = new SoapObject(SERVICENAMESPACE, GetYojnaList);
+        //request.addProperty("APIKey", API_Key);
+        SoapObject res1;
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            envelope.addMapping(SERVICENAMESPACE, Yojna_Entity.YOJNA_Class.getSimpleName(), Yojna_Entity.YOJNA_Class);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + GetYojnaList,
+                    envelope);
+
+            res1 = (SoapObject) envelope.getResponse();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        int TotalProperty = res1.getPropertyCount();
+
+        ArrayList<Yojna_Entity> pvmArrayList = new ArrayList<>();
+
+        for (int ii = 0; ii < TotalProperty; ii++) {
+            if (res1.getProperty(ii) != null) {
+                Object property = res1.getProperty(ii);
+                if (property instanceof SoapObject) {
+                    SoapObject final_object = (SoapObject) property;
+                    Yojna_Entity district = new Yojna_Entity(final_object);
                     pvmArrayList.add(district);
                 }
             } else

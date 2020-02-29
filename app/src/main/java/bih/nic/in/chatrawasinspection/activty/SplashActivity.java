@@ -181,7 +181,7 @@ public class SplashActivity extends Activity {
         Intent i;
         if(USERID.equalsIgnoreCase("")) {
 
-            i = new Intent(getApplicationContext(), Activity_Hostel_Home.class);
+            i = new Intent(getApplicationContext(), Login_Activity.class);
             startActivity(i);
         }else {
             i = new Intent(getApplicationContext(), Activity_Hostel_Home.class);

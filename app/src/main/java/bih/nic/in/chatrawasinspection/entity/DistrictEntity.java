@@ -1,8 +1,12 @@
 package bih.nic.in.chatrawasinspection.entity;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
-public class DistrictEntity {
+import java.util.Hashtable;
+
+public class DistrictEntity implements KvmSerializable {
 
     public static Class<DistrictEntity> DistClass = DistrictEntity.class;
     private String DistCode;
@@ -31,5 +35,25 @@ public class DistrictEntity {
 
     public void setDistName(String distName) {
         DistName = distName;
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
     }
 }

@@ -43,6 +43,7 @@ import bih.nic.in.chatrawasinspection.entity.FinYear_Model;
 import bih.nic.in.chatrawasinspection.entity.Gender_Entity;
 import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.StudentPhoto;
+import bih.nic.in.chatrawasinspection.entity.Yojna_Entity;
 import bih.nic.in.chatrawasinspection.utility.CommonPref;
 import bih.nic.in.chatrawasinspection.utility.Utiilties;
 import bih.nic.in.chatrawasinspection.webservice.WebServiceHelper;
@@ -63,6 +64,7 @@ public class Activity_Hostel_Home extends Activity {
     ArrayAdapter<String> Schemeadapter;
     String SchemeId="";
     ArrayList<FinYear_Model> FYearList = new ArrayList<FinYear_Model>();
+    ArrayList<Yojna_Entity> YojnaList = new ArrayList<Yojna_Entity>();
     ArrayList<DistrictEntity> DistList = new ArrayList<DistrictEntity>();
     ArrayList<Area_Entity> Area_List = new ArrayList<Area_Entity>();
     ArrayList<Category_Entity> Category_List = new ArrayList<Category_Entity>();
@@ -118,6 +120,10 @@ public class Activity_Hostel_Home extends Activity {
         Bank_List = dataBaseHelper.getBankLocal();
         if (Bank_List.size() <= 0) {
             new BankList_New().execute();
+        }
+        YojnaList = dataBaseHelper.getYojnaLocal();
+        if (YojnaList.size() <= 0) {
+            new Yojna_New().execute();
         }
 
 
@@ -232,6 +238,52 @@ public class Activity_Hostel_Home extends Activity {
                 long i = helper.setFinancialYear(result);
                 if (i > 0) {
                     Toast.makeText(Activity_Hostel_Home.this, "Financial Year Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            } else {
+                Toast.makeText(Activity_Hostel_Home.this, "Result:null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private class Yojna_New extends AsyncTask<String, Void, ArrayList<Yojna_Entity>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(Activity_Hostel_Home.this);
+
+        private final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Activity_Hostel_Home.this).create();
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Financial Year...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<Yojna_Entity> doInBackground(String... param) {
+
+
+            return WebServiceHelper.getYojna();
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Yojna_Entity> result) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+
+            if (result != null) {
+                Log.d("Resultgfg", "" + result);
+
+                DataBaseHelper helper = new DataBaseHelper(Activity_Hostel_Home.this);
+
+
+                long i = helper.setYojna(result);
+                if (i > 0) {
+                    Toast.makeText(Activity_Hostel_Home.this, "Yojna Loaded", Toast.LENGTH_SHORT).show();
                 } else {
 
                 }

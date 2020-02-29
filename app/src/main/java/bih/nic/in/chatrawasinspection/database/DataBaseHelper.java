@@ -30,6 +30,7 @@ import bih.nic.in.chatrawasinspection.entity.Schemelist;
 import bih.nic.in.chatrawasinspection.entity.UserDetails;
 import bih.nic.in.chatrawasinspection.entity.Village_Entity;
 import bih.nic.in.chatrawasinspection.entity.Ward_Entity;
+import bih.nic.in.chatrawasinspection.entity.Yojna_Entity;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     // The Android's default system path of your application database.
@@ -541,6 +542,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return bdetail;
     }
+    public ArrayList<Yojna_Entity> getYojnaLocal() {
+        ArrayList<Yojna_Entity> bdetail = new ArrayList<Yojna_Entity>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cur = db.rawQuery("select * from Yojna order by YojnaCode", null);
+            int x = cur.getCount();
+            while (cur.moveToNext()) {
+                Yojna_Entity financial_year = new Yojna_Entity();
+                financial_year.setYojna_Code(cur.getString(cur.getColumnIndex("YojnaCode")));
+                financial_year.setYojna_Name((cur.getString(cur.getColumnIndex("YojnaName"))));
+                bdetail.add(financial_year);
+            }
+            cur.close();
+            db.close();
+        } catch (Exception e) {
+        }
+        return bdetail;
+    }
 
     public ArrayList<DistrictEntity> getDistrictLocal() {
         ArrayList<DistrictEntity> bdetail = new ArrayList<DistrictEntity>();
@@ -671,6 +690,60 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     if (!(c > 0)) {
 
                         c = db.insert("FyearList", null, values);
+                    }
+
+                    //c = db.insert("Financial_Year", null, values);
+
+
+                }
+                db.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return c;
+            }
+        }
+        return c;
+
+
+    }
+    public long setYojna(ArrayList<Yojna_Entity> list) {
+
+
+        long c = -1;
+
+
+        DataBaseHelper dh = new DataBaseHelper(myContext);
+
+        try {
+            dh.createDataBase();
+
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return -1;
+        }
+
+        ArrayList<Yojna_Entity> info = list;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        db.delete("Yojna",null,null);
+        if (info != null) {
+            try {
+                for (int i = 0; i < info.size(); i++) {
+
+                    values.put("YojnaCode", info.get(i).getYojna_Code());
+                    values.put("YojnaName", info.get(i).getYojna_Name());
+
+
+                    String[] whereArgs = new String[]{info.get(i).getYojna_Code()};
+
+                    c = db.update("Yojna", values, "YojnaCode=?", whereArgs);
+                    if (!(c > 0)) {
+
+                        c = db.insert("Yojna", null, values);
                     }
 
                     //c = db.insert("Financial_Year", null, values);
@@ -1389,6 +1462,62 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             //info = null;
         }
         return infoList;
+    }
+    public long InsertInBasicDetails(EjananiEntryDetail result) {
+
+        long c = 0;
+        try {
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("FinancialYearId", result.getFinancialYearId());
+            values.put("FinancialYearName", result.getFinancialYearName());
+            values.put("YojnaId", result.getYojnaId());
+            values.put("YojnaName", result.getYojnaName());
+            values.put("DistrictCode", result.getDistrictCode());
+            values.put("DistrictName", result.getDistrictName());
+            values.put("BlockCode", result.getBlockCode());
+            values.put("BlockName", result.getBlockName());
+            values.put("AreaTypeId", result.getAreaTypeId());
+            values.put("AreaTypeName", result.getAreaTypeName());
+            values.put("PanchayatCode", result.getPanchayatCode());
+            values.put("PanchayatName", result.getPanchayatName());
+            values.put("VillageCode", result.getVillageCode());
+            values.put("VillageName", result.getVillageName());
+            values.put("WardCode", result.getWardCode());
+            values.put("WardName", result.getWardName());
+            values.put("BabyNameEng", result.getBabyNameEng());
+            values.put("BabyNameHindi", result.getBabyNameHindi());
+            values.put("FatherNameEng", result.getFatherNameEng());
+            values.put("FatherNameHindi", result.getFatherNameHindi());
+            values.put("MotherNameEng", result.getMotherNameEng());
+            values.put("MotherNameHindi", result.getMotherNameHindi());
+            values.put("BabyGenderId", result.getBabyGenderId());
+            values.put("BabyGenderName", result.getBabyGenderName());
+            values.put("CategoryId", result.getCategoryId());
+            values.put("CategoryName", result.getCategoryName());
+            values.put("JanamLiyeSisuKiSankhya", result.getJanamLiyeSisuKiSankhya());
+            values.put("BabyWeight", result.getBabyWeight());
+            values.put("MotherAadgharNo", result.getMotherAadgharNo());
+            values.put("BabyAadharNo", result.getBabyAadharNo());
+            values.put("MobileNo", result.getMobileNo());
+            values.put("Remark", result.getRemark());
+            values.put("BankAccountNo", result.getBankAccountNo());
+            values.put("IfscCode", result.getIfscCode());
+            values.put("BankName", result.getBankName());
+            values.put("EntryBy", result.getEntryBy());
+            values.put("EntryDate", result.getEntryDate());
+
+
+            c = db.insert("EjananiNewEntry", null, values);
+
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return c;
+        }
+        return c;
+
     }
 
 }

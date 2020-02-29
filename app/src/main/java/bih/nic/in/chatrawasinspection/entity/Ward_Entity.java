@@ -1,8 +1,12 @@
 package bih.nic.in.chatrawasinspection.entity;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
-public class Ward_Entity {
+import java.util.Hashtable;
+
+public class Ward_Entity implements KvmSerializable {
 
     public static Class<Ward_Entity> Ward_Class = Ward_Entity.class;
     private String PanchayatCode;
@@ -61,5 +65,25 @@ public class Ward_Entity {
 
     public void setAreaCode(String areaCode) {
         AreaCode = areaCode;
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
     }
 }

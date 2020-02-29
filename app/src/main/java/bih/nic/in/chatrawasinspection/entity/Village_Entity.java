@@ -1,8 +1,12 @@
 package bih.nic.in.chatrawasinspection.entity;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
-public class Village_Entity {
+import java.util.Hashtable;
+
+public class Village_Entity  implements KvmSerializable {
 
     public static Class<Village_Entity> Village_Class = Village_Entity.class;
     private String Vill_code;
@@ -33,5 +37,25 @@ public class Village_Entity {
 
     public void setVill_Name(String vill_Name) {
         Vill_Name = vill_Name;
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
     }
 }

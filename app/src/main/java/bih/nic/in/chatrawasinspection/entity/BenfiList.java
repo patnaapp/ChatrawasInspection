@@ -1,8 +1,12 @@
 package bih.nic.in.chatrawasinspection.entity;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
-public class BenfiList {
+import java.util.Hashtable;
+
+public class BenfiList implements KvmSerializable {
     private String SchemeId="";
     private String DistrictCode="";
     private String DistrictName="";
@@ -193,5 +197,25 @@ public class BenfiList {
 
     public void setEntryBy(String entryBy) {
         EntryBy = entryBy;
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
     }
 }

@@ -26,6 +26,13 @@ public class UserDetails implements KvmSerializable {
     private String schemeName="";
 
 
+    private String DeptCode="";
+    private String DeptName="";
+    private String HospitalCode="";
+    private String Hospital="";
+    private String HopitalType="";
+
+
 
     public UserDetails() {
     }
@@ -33,18 +40,29 @@ public class UserDetails implements KvmSerializable {
     @SuppressWarnings("deprecation")
     public UserDetails(SoapObject obj) {
         this.setAuthenticated(Boolean.parseBoolean(obj.getProperty("isAuthenticated").toString()));
+        this.setUserID(obj.getProperty("UserID").toString());
+        this.setUserName(obj.getProperty("UserName").toString());
         this.setUserRole(obj.getProperty("UserRole").toString());
-        this.setRoleDescription(obj.getProperty("RoleDescription").toString());
         this.setDeptId(obj.getProperty("DeptId").toString());
+        this.setDeptCode(obj.getProperty("DeptCode").toString());
+        this.setDeptName(obj.getProperty("DeptName").toString());
         this.setDistrictCode(obj.getProperty("DistrictCode").toString());
         this.setDistrictName(obj.getProperty("DistrictName").toString());
-        this.setBlockCode(obj.getProperty("BlockCode").toString());
-        this.setBlockName(obj.getProperty("BlockName").toString());
+        this.setHospitalCode(obj.getProperty("HospitalCode").toString());
         this.setPanchayatCode(obj.getProperty("PanchayatCode").toString());
-        this.setGrpTypeID(obj.getProperty("GrpTypeID").toString());
-        this.setUserID(obj.getProperty("UserID").toString());
-        this.setPassword(obj.getProperty("Password").toString());
-        this.setUserName(obj.getProperty("UserName").toString());
+        this.setHospital(obj.getProperty("Hospital").toString());
+        this.setHopitalType(obj.getProperty("HopitalType").toString());
+
+//        this.setRoleDescription(obj.getProperty("RoleDescription").toString());
+//
+//
+//        this.setBlockCode(obj.getProperty("BlockCode").toString());
+//        this.setBlockName(obj.getProperty("BlockName").toString());
+//
+//        this.setGrpTypeID(obj.getProperty("GrpTypeID").toString());
+//
+//        this.setPassword(obj.getProperty("Password").toString());
+
 
     }
 
@@ -393,4 +411,46 @@ public class UserDetails implements KvmSerializable {
     public void setSchemeName(String schemeName) {
         this.schemeName = schemeName;
     }
+
+    public String getDeptCode() {
+        return DeptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        DeptCode = deptCode;
+    }
+
+    public String getDeptName() {
+        return DeptName;
+    }
+
+    public void setDeptName(String deptName) {
+        DeptName = deptName;
+    }
+
+    public String getHospitalCode() {
+        return HospitalCode;
+    }
+
+    public void setHospitalCode(String hospitalCode) {
+        HospitalCode = hospitalCode;
+    }
+
+    public String getHospital() {
+        return Hospital;
+    }
+
+    public void setHospital(String hospital) {
+        Hospital = hospital;
+    }
+
+    public String getHopitalType() {
+        return HopitalType;
+    }
+
+    public void setHopitalType(String hopitalType) {
+        HopitalType = hopitalType;
+    }
+
+
 }

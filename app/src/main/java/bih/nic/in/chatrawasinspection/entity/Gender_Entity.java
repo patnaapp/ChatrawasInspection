@@ -1,8 +1,12 @@
 package bih.nic.in.chatrawasinspection.entity;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
-public class Gender_Entity {
+import java.util.Hashtable;
+
+public class Gender_Entity implements KvmSerializable {
 
     public static Class<Gender_Entity> Gender_Class = Gender_Entity.class;
     private String gender_Id;
@@ -31,5 +35,25 @@ public class Gender_Entity {
 
     public void setGender_Nm(String gender_Nm) {
         this.gender_Nm = gender_Nm;
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
     }
 }
